@@ -19,6 +19,21 @@ func StUint16(inputString string) (result uint16, ok bool) {
 	return
 }
 
+// StByte converts input string to Byte type
+func StByte(inputString string) (result byte, ok bool) {
+
+	var err error       // to store error result
+	var tmpInt64 int // a temporary uint64 value
+
+	tmpInt64, err = strconv.Atoi(inputString)
+	if err == nil {
+		ok = true
+		result = byte(tmpInt64)
+	}
+
+	return
+}
+
 // StBool converts input string "true" to bool type
 func StBool(inputString string) bool {
 

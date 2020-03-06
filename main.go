@@ -60,7 +60,7 @@ func GenPassword(length byte) (str string, err error) {
 	var i byte
 	for ; i < length; i++ {
 		err = builder.WriteByte(chars[rand.Intn(charsLength)])
-		if err != nil {
+		if err == nil {
 			return builder.String(), nil
 		}
 	}

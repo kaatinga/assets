@@ -1,7 +1,10 @@
 package assets
 
 import (
+	"math/rand"
 	"strconv"
+	"strings"
+	"time"
 )
 
 // StUint16 converts input string to uint16 type
@@ -40,4 +43,26 @@ func StBool(inputString string) bool {
 	}
 
 	return false
+}
+
+// GenPassword generates a password of a set length
+func GenPassword(length byte) (str string, err error) {
+	rand.Seed(time.Now().UnixNano()) // in order to issue really random password
+	chars := []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
+	charsLength := len(chars)
+
+	if length == 0 { // in case we do not want to point out the length we can set zero
+		length = 7
+	}
+
+	var builder strings.Builder
+
+	var i byte
+	for ; i < length; i++ {
+		err = builder.WriteByte(chars[rand.Intn(charsLength)])
+		if err != nil {
+			return builder.String(), nil
+		}
+	}
+	return "", err
 }

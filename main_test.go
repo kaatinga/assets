@@ -1,7 +1,6 @@
 package assets
 
 import (
-	"log"
 	"testing"
 )
 
@@ -17,13 +16,13 @@ func TestGenPassword(t *testing.T) {
 	}{
 		{"Zero value", args{0}, 7, false},
 		{"6", args{6}, 6, false},
-		{"incorrect 7", args{7}, 6, true},
+		{"16", args{16}, 16, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotStr, err := GenPassword(tt.args.length)
-			log.Println(gotStr)
-			if (err != nil) != tt.wantErr {
+			ok := (err != nil)
+			if ok != tt.wantErr {
 				t.Errorf("GenPassword() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}

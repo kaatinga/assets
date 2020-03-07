@@ -42,7 +42,10 @@ func TestStBool(t *testing.T) {
 		args args
 		want bool
 	}{
-		// TODO: Add test cases.
+		{"true 1", args{"on"}, true},
+		{"true 2", args{"true"}, true},
+		{"false 1", args{""}, false},
+		{"false 2", args{"да!"}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -63,7 +66,9 @@ func TestStByte(t *testing.T) {
 		want  byte
 		want1 bool
 	}{
-		// TODO: Add test cases.
+		{"incorrect string", args{"9999"}, 0, false},
+		{"correct string", args{"9"}, 9, true},
+		{"negatrive string", args{"-9"}, 0, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -88,7 +93,9 @@ func TestStUint16(t *testing.T) {
 		want  uint16
 		want1 bool
 	}{
-		// TODO: Add test cases.
+		{"incorrect string", args{"99999"}, 0, false},
+		{"correct string", args{"9"}, 9, true},
+		{"negatrive string", args{"-9"}, 0, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

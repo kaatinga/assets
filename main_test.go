@@ -1,23 +1,28 @@
 package assets
 
-import "testing"
+import (
+	"log"
+	"testing"
+)
 
 func TestGenPassword(t *testing.T) {
 	type args struct {
 		length byte
 	}
 	tests := []struct {
-		name    string
-		args    args
+		name      string
+		args      args
 		strLength int
-		wantErr bool
+		wantErr   bool
 	}{
 		{"Zero value", args{0}, 7, false},
 		{"6", args{6}, 6, false},
+		{"incorrect 7", args{7}, 6, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotStr, err := GenPassword(tt.args.length)
+			log.Println(gotStr)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GenPassword() error = %v, wantErr %v", err, tt.wantErr)
 				return

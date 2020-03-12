@@ -87,6 +87,6 @@ func SaveFile(data interface{}, path string) (err error) {
 
 // SafeQM escapes quatation marks adding '\' before them
 func SafeQM(str string) (newString string) {
-	newString = strings.Replace(str, `"`, `\"`, 0)
+	newString = strings.Replace(str, `"`, `\"`, -1)
 	return
 }

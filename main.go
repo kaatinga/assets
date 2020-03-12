@@ -1,6 +1,8 @@
 package assets
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -65,4 +67,20 @@ func GenPassword(length byte) (str string, err error) {
 		}
 	}
 	return builder.String(), nil
+}
+
+// SaveFile saves a file
+func SaveFile(data interface{}, path string) (err error) {
+	var dataToWrite []byte // the variable to store serialized JSON data
+	dataToWrite, err = json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(path, dataToWrite, 0660)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -109,3 +109,24 @@ func TestStUint16(t *testing.T) {
 		})
 	}
 }
+
+func TestSaveFile(t *testing.T) {
+	type args struct {
+		data interface{}
+		path string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := SaveFile(tt.args.data, tt.args.path); (err != nil) != tt.wantErr {
+				t.Errorf("SaveFile() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

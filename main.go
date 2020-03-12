@@ -70,7 +70,7 @@ func GenPassword(length byte) (str string, err error) {
 }
 
 // SaveFile saves a file
-func SaveFile(data *interface{}, path string) (err error) {
+func SaveFile(data interface{}, path string) (err error) {
 	var dataToWrite []byte // the variable to store serialized JSON data
 	dataToWrite, err = json.Marshal(data)
 	if err != nil {
@@ -83,4 +83,9 @@ func SaveFile(data *interface{}, path string) (err error) {
 	}
 
 	return nil
+}
+
+// SafeQM escapes quatation marks adding '\' before them
+func SafeQM(str string) (newString string, err error) {
+	newString = strings.Replace(str, `"`, `\"`, 0)
 }

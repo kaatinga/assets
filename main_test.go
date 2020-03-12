@@ -150,3 +150,23 @@ func TestSafeQM(t *testing.T) {
 		})
 	}
 }
+
+func TestRemoveSafeQM(t *testing.T) {
+	type args struct {
+		str string
+	}
+	tests := []struct {
+		name          string
+		args          args
+		wantNewString string
+	}{
+		{`correct string`, args{`ООО \"Ромашка\"`}, `ООО "Ромашка"`},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotNewString := RemoveSafeQM(tt.args.str); gotNewString != tt.wantNewString {
+				t.Errorf("RemoveSafeQM() = %v, want %v", gotNewString, tt.wantNewString)
+			}
+		})
+	}
+}

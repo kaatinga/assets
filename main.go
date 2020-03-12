@@ -90,3 +90,9 @@ func SafeQM(str string) (newString string) {
 	newString = strings.Replace(str, `"`, `\"`, -1)
 	return
 }
+
+// RemoveSafeQM removes symbols '\' before quatation marks
+func RemoveSafeQM(str string) (newString string) {
+	newString = strings.Replace(str, `\"`, `"`, -1)
+	return
+}

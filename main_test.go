@@ -170,3 +170,49 @@ func TestRemoveSafeQM(t *testing.T) {
 		})
 	}
 }
+
+func TestCheckRussianCompanyName(t *testing.T) {
+	type args struct {
+		company string
+	}
+	tests := []struct {
+		name   string
+		args   args
+		wantOk bool
+	}{
+		{`string1`, args{"ООО «аб_в»"}, false},
+		{`string+digits`, args{"ООО «1а2б_3в»"}, false},
+		{`string2`, args{"ООО «Про&+ба»"}, true},
+		{`string+digits2`, args{"ООО «а-б1-в»"}, true},
+		{`string3`, args{"ООО \"а&бв\""}, true},
+		{`englishstring`, args{"ООО «Company»"}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotOk := CheckRussianCompanyName(tt.args.company); gotOk != tt.wantOk {
+				t.Errorf("CheckCompanyName() = %v, want %v", gotOk, tt.wantOk)
+			}
+		})
+	}
+}
+
+func Test_removeCharacters(t *testing.T) {
+	type args struct {
+		input      string
+		characters string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{`string1`, args{"ООО «аб_в»", "&\"+-_»«"}, "ООО абв"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := RemoveCharacters(tt.args.input, tt.args.characters); got != tt.want {
+				t.Errorf("removeCharacters() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

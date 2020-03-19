@@ -3,10 +3,12 @@ package assets
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 )
 
 // StUint16 converts input string to uint16 type
@@ -95,4 +97,51 @@ func SafeQM(str string) (newString string) {
 func RemoveSafeQM(str string) (newString string) {
 	newString = strings.Replace(str, `\"`, `"`, -1)
 	return
+}
+
+// CheckRussianCompanyName check if an only allowed set of symbols is in the company name
+func CheckRussianCompanyName(company string) (ok bool) {
+	// Russian company can have digits and russian symbols, as well as soon symbols below
+	var symbolRange []*unicode.RangeTable = []*unicode.RangeTable{
+		unicode.Cyrillic,
+		unicode.Digit,
+	}
+
+	company = RemoveCharacters(company, "& \"+-»«") // to remove a set of allowed symbols
+	companyRune := []rune(company)
+
+	for _, value := range companyRune {
+		if !unicode.IsOneOf(symbolRange, value) {
+			log.Println(value)
+			return false
+		}
+	}
+
+	return true
+}
+
+// CheckName check if an only allowed set of symbols is in the string
+func CheckName(name string) (ok bool) {
+	name = RemoveCharacters(name, " ") // to remove space
+	nameRune := []rune(name)
+
+	for _, value := range nameRune {
+		if !unicode.In(value, unicode.Cyrillic) {
+			log.Println(value)
+			return false
+		}
+	}
+
+	return true
+}
+
+// RemoveCharacters removes the set of characters from the input string
+func RemoveCharacters(input, characters string) string {
+	filter := func(r rune) rune {
+		if strings.IndexRune(characters, r) < 0 {
+			return r
+		}
+		return -1
+	}
+	return strings.Map(filter, input)
 }

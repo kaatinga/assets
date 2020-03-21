@@ -3,7 +3,6 @@ package assets
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -112,7 +111,6 @@ func CheckRussianCompanyName(company string) (ok bool) {
 
 	for _, value := range companyRune {
 		if !unicode.IsOneOf(symbolRange, value) {
-			log.Println(value)
 			return false
 		}
 	}
@@ -127,7 +125,6 @@ func CheckName(name string) (ok bool) {
 
 	for _, value := range nameRune {
 		if !unicode.In(value, unicode.Cyrillic) {
-			log.Println(value)
 			return false
 		}
 	}

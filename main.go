@@ -83,6 +83,21 @@ func StByte(inputString string) (byte, bool) {
 	return 0, false
 }
 
+// SetByte checks and sets input string to byte type
+func SetByte(inputByte *byte, inputString string) bool {
+	var err error  // to store error result
+	var tmpInt int // a temporary int value
+
+	tmpInt, err = strconv.Atoi(inputString)
+	if err == nil {
+		if tmpInt >= 0 && tmpInt < 256 {
+			*inputByte = byte(tmpInt)
+			return true
+		}
+	}
+	return false
+}
+
 // StBool converts input string "true" to bool type
 func StBool(inputString string) bool {
 

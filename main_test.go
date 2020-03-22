@@ -68,6 +68,7 @@ func TestStByte(t *testing.T) {
 	}{
 		{"incorrect string", args{"9999"}, 0, false},
 		{"correct string", args{"9"}, 9, true},
+		{"zero", args{"0"}, 0, true},
 		{"negatrive string", args{"-9"}, 0, false},
 	}
 	for _, tt := range tests {

@@ -24,6 +24,51 @@ func StUint16(inputString string) (uint16, bool) {
 	return 0, false
 }
 
+// Uint16 is an extended version of uint16 type
+type Uint16 struct {
+	Parameter uint16
+	Ok        bool
+}
+
+func (Uint16 *Uint16) IsOk() bool {
+	return Uint16.Ok
+}
+
+func (Uint16 *Uint16) Unpack() (uint16, bool) {
+	return Uint16.Parameter, Uint16.Ok
+}
+
+// CheckUint16 checks and converts input string to uint16 type
+func CheckUint16(inputString string) (output Uint16) {
+	var err error  // to store error result
+	var tmpInt int // a temporary int value
+
+	tmpInt, err = strconv.Atoi(inputString)
+	if err == nil {
+		if tmpInt >= 0 && tmpInt < 65536 {
+			output.Parameter = uint16(tmpInt)
+			output.Ok = true
+			return output
+		}
+	}
+	return output
+}
+
+// SetUint16 checks and sets input string to uint16 type
+func SetUint16(inputUint16 *uint16, inputString string) bool {
+	var err error  // to store error result
+	var tmpInt int // a temporary int value
+
+	tmpInt, err = strconv.Atoi(inputString)
+	if err == nil {
+		if tmpInt >= 0 && tmpInt < 65536 {
+			*inputUint16 = uint16(tmpInt)
+			return true
+		}
+	}
+	return false
+}
+
 // StByte converts input string to Byte type
 func StByte(inputString string) (byte, bool) {
 	var err error  // to store error result
@@ -141,4 +186,66 @@ func RemoveCharacters(input, characters string) string {
 		return -1
 	}
 	return strings.Map(filter, input)
+}
+
+// A generic type
+type Gen struct {
+	Parameter interface{}
+	Ok        bool
+}
+
+// Uint16 checks and sets uint16 value from generic to a pointer to uint16
+func (gen Gen) Uint16(parameter *uint16) bool {
+
+	switch gen.Parameter.(type) {
+	case uint16:
+	default:
+		return false
+	}
+
+	if gen.Ok {
+		*parameter = gen.Parameter.(uint16)
+		return true
+	}
+	return false
+}
+
+// Byte checks and sets uint16 value from generic to a pointer to byte
+func (gen Gen) Byte(parameter *byte) bool {
+
+	switch gen.Parameter.(type) {
+	case byte:
+	default:
+		return false
+	}
+
+	if gen.Ok {
+		*parameter = gen.Parameter.(byte)
+		return true
+	}
+	return false
+}
+
+func CheckGen(input ...interface{}) (gen Gen) {
+
+	switch input[1].(type) {
+	case bool:
+		if !input[1].(bool) {
+			return
+		}
+	default:
+		gen.Ok = false
+		return
+	}
+
+	switch input[0].(type) {
+	case uint16, byte:
+		gen.Parameter = input[0]
+		gen.Ok = true
+	default:
+		gen.Ok = false
+		return
+	}
+
+	return
 }

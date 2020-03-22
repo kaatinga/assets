@@ -216,3 +216,26 @@ func Test_removeCharacters(t *testing.T) {
 		})
 	}
 }
+
+func TestSetUint16(t *testing.T) {
+	var testUint16 uint16
+	type args struct {
+		inputUint16 *uint16
+		inputString string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{`correct`, args{&testUint16, "16"}, true},
+		{`incorrect`, args{&testUint16, "-16"}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := SetUint16(tt.args.inputUint16, tt.args.inputString); got != tt.want {
+				t.Errorf("SetUint16() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

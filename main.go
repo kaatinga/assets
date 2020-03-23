@@ -87,6 +87,15 @@ func SetUint16(inputUint16 *uint16, inputString string) bool {
 	return false
 }
 
+// SetStringByPointer checks and sets input Strings parameter to a string through a pointer
+func (input *String) SetStringByPointer(output *string) bool {
+	if (*input).Parameter != "" {
+		*output = (*input).Parameter
+		return true
+	}
+	return false
+}
+
 // StByte converts input string to Byte type
 func StByte(inputString string) (byte, bool) {
 	var err error  // to store error result

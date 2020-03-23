@@ -30,12 +30,30 @@ type Uint16 struct {
 	Ok        bool
 }
 
+// String is an extended version of uint16 type
+type String struct {
+	Parameter string
+	Ok        bool
+}
+
+// IsOk returns datasets ok value
 func (Uint16 *Uint16) IsOk() bool {
 	return Uint16.Ok
 }
 
+// IsOk returns datasets ok value
+func (String *String) IsOk() bool {
+	return String.Ok
+}
+
+// Unpack returns parameter's value and ok of a dataset
 func (Uint16 *Uint16) Unpack() (uint16, bool) {
 	return Uint16.Parameter, Uint16.Ok
+}
+
+// Unpack returns parameter's value and ok of a dataset
+func (String *String) Unpack() (string, bool) {
+	return String.Parameter, String.Ok
 }
 
 // CheckUint16 checks and converts input string to uint16 type
@@ -262,5 +280,17 @@ func CheckGen(input ...interface{}) (gen Gen) {
 		return
 	}
 
+	return
+}
+
+// HTTPString removes all leading and trailing white space and replace quotation marks with &#34;
+func HTTPString(input string) (output String) {
+	if input == "" {
+		output.Ok = false
+		return output
+	}
+	output.Ok = true
+	output.Parameter = strings.TrimSpace(input)
+	output.Parameter = strings.Replace(output.Parameter, "\"", "&#34;", -1)
 	return
 }

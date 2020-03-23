@@ -1,6 +1,7 @@
 package assets
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -236,6 +237,47 @@ func TestSetUint16(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := SetUint16(tt.args.inputUint16, tt.args.inputString); got != tt.want {
 				t.Errorf("SetUint16() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestHTTPString(t *testing.T) {
+	type args struct {
+		input string
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantOutput String
+	}{
+		{`correct`, args{` "abc" `}, String{"&#34;abc&#34;", true}},
+		{`incorrect`, args{""}, String{"", false}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotOutput := HTTPString(tt.args.input); !reflect.DeepEqual(gotOutput, tt.wantOutput) {
+				t.Errorf("HTTPString() = %v, want %v", gotOutput, tt.wantOutput)
+			}
+		})
+	}
+}
+
+func TestString_IsOk(t *testing.T) {
+	correctString := String{"&#34;abc&#34;", true}
+	incorrectString := String{"", false}
+	tests := []struct {
+		name   string
+		String *String
+		want   bool
+	}{
+		{`correct`, &correctString, true},
+		{`incorrect`, &incorrectString, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.String.IsOk(); got != tt.want {
+				t.Errorf("String.IsOk() = %v, want %v", got, tt.want)
 			}
 		})
 	}

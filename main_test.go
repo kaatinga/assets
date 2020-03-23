@@ -282,3 +282,26 @@ func TestString_IsOk(t *testing.T) {
 		})
 	}
 }
+
+func TestString_SetStringByPointer(t *testing.T) {
+	correctString := String{"&#34;abc&#34;", true}
+	var tempString string
+	type args struct {
+		output *string
+	}
+	tests := []struct {
+		name  string
+		input *String
+		args  args
+		want  bool
+	}{
+		{`correct`, &correctString, args{&tempString}, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.input.SetStringByPointer(tt.args.output); got != tt.want {
+				t.Errorf("String.SetStringByPointer() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

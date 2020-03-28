@@ -305,3 +305,25 @@ func TestString_SetStringByPointer(t *testing.T) {
 		})
 	}
 }
+
+func TestMultipleEqual(t *testing.T) {
+	type args struct {
+		bools []bool
+	}
+	tests := []struct {
+		name string
+		args args
+		want byte
+	}{
+		{`all true`, args{[]bool{true, true, true, true}}, 2},
+		{`all false`, args{[]bool{false, false, false, false}}, 1},
+		{`true and false`, args{[]bool{true, false, true, false}}, 3},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MultipleEqual(tt.args.bools...); got != tt.want {
+				t.Errorf("MultipleEqual() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

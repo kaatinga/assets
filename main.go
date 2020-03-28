@@ -230,7 +230,7 @@ func RemoveCharacters(input, characters string) string {
 	return strings.Map(filter, input)
 }
 
-// A generic type
+// Gen is a generic type
 type Gen struct {
 	Parameter interface{}
 	Ok        bool
@@ -268,6 +268,7 @@ func (gen Gen) Byte(parameter *byte) bool {
 	return false
 }
 
+// CheckGen is a generic check
 func CheckGen(input ...interface{}) (gen Gen) {
 
 	switch input[1].(type) {
@@ -302,4 +303,32 @@ func HTTPString(input string) (output String) {
 	output.Parameter = strings.TrimSpace(input)
 	output.Parameter = strings.Replace(output.Parameter, "\"", "&#34;", -1)
 	return
+}
+
+// MultipleEqual checks all the bool parameters and returns a result
+func MultipleEqual(bools ...bool) byte {
+
+	var previous byte
+	var previousBool bool
+	for _, value := range bools {
+		if previous == 0 {
+			previousBool = value
+			if value == true {
+				previous = 2
+			}
+
+			previous = 1
+			continue
+		}
+
+		if previousBool != value {
+			return 3 // 3 means the values are not equal
+		}
+	}
+
+	if previousBool == false {
+		return 1 // 1 = false
+	}
+
+	return 2 // 2 = true
 }

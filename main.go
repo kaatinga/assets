@@ -87,6 +87,21 @@ func SetUint16(inputUint16 *uint16, inputString string) bool {
 	return false
 }
 
+// SetUint32 checks and sets input string to uint16 type
+func SetUint32(inputUint16 *uint32, inputString string) bool {
+	var err error  // to store error result
+	var tmpInt int // a temporary int value
+
+	tmpInt, err = strconv.Atoi(inputString)
+	if err == nil {
+		if tmpInt >= 0 && tmpInt < 4294967295 {
+			*inputUint16 = uint32(tmpInt)
+			return true
+		}
+	}
+	return false
+}
+
 // SetStringByPointer checks and sets input Strings parameter to a string through a pointer
 func (input *String) SetStringByPointer(output *string) bool {
 	if (*input).Parameter != "" {

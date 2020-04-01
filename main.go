@@ -24,6 +24,20 @@ func StUint16(inputString string) (uint16, bool) {
 	return 0, false
 }
 
+// StUint32 converts input string to uint16 type
+func StUint32(inputString string) (uint32, bool) {
+	var err error  // to store error result
+	var tmpInt int // a temporary int value
+
+	tmpInt, err = strconv.Atoi(inputString)
+	if err == nil {
+		if tmpInt >= 0 && tmpInt < 4294967296 {
+			return uint32(tmpInt), true
+		}
+	}
+	return 0, false
+}
+
 // Uint16 is an extended version of uint16 type
 type Uint16 struct {
 	Parameter uint16
@@ -94,7 +108,7 @@ func SetUint32(inputUint32 *uint32, inputString string) bool {
 
 	tmpInt, err = strconv.Atoi(inputString)
 	if err == nil {
-		if tmpInt >= 0 && tmpInt < 4294967295 {
+		if tmpInt >= 0 && tmpInt < 4294967296 {
 			*inputUint32 = uint32(tmpInt)
 			return true
 		}

@@ -88,14 +88,14 @@ func SetUint16(inputUint16 *uint16, inputString string) bool {
 }
 
 // SetUint32 checks and sets input string to uint16 type
-func SetUint32(inputUint16 *uint32, inputString string) bool {
+func SetUint32(inputUint32 *uint32, inputString string) bool {
 	var err error  // to store error result
 	var tmpInt int // a temporary int value
 
 	tmpInt, err = strconv.Atoi(inputString)
 	if err == nil {
 		if tmpInt >= 0 && tmpInt < 4294967295 {
-			*inputUint16 = uint32(tmpInt)
+			*inputUint32 = uint32(tmpInt)
 			return true
 		}
 	}

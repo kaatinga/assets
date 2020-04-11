@@ -361,3 +361,8 @@ func MultipleEqual(bools ...bool) byte {
 
 	return 2 // 2 = true
 }
+
+// Compare compares two string
+func Compare(string1, string2 string) bool {
+	return string1 == string2
+}

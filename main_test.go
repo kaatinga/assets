@@ -327,3 +327,25 @@ func TestMultipleEqual(t *testing.T) {
 		})
 	}
 }
+
+func TestCompare(t *testing.T) {
+	type args struct {
+		string1 string
+		string2 string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{`true`, args{"a", "a"}, true},
+		{`false`, args{"a", "b"}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Compare(tt.args.string1, tt.args.string2); got != tt.want {
+				t.Errorf("Compare() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

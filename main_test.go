@@ -308,3 +308,77 @@ func TestCompareTwoStrings(t *testing.T) {
 		})
 	}
 }
+
+func TestCheckUint16(t *testing.T) {
+	type args struct {
+		inputString string
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantOutput Uint16
+	}{
+		{`false 1`, args{"a"}, Uint16{0,false}},
+		{`true 1`, args{"0"}, Uint16{0,true}},
+		{`true 2`, args{"55"}, Uint16{55,true}},
+		{`false 2`, args{"65536"}, Uint16{0,false}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotOutput := CheckUint16(tt.args.inputString); !reflect.DeepEqual(gotOutput, tt.wantOutput) {
+				t.Errorf("CheckUint16() = %v, want %v", gotOutput, tt.wantOutput)
+			}
+		})
+	}
+}
+
+func TestStUint32(t *testing.T) {
+	type args struct {
+		inputString string
+	}
+	tests := []struct {
+		name  string
+		args  args
+		want  uint32
+		want1 bool
+	}{
+		{"incorrect string", args{"4294967297"}, 0, false},
+		{"correct string", args{"9"}, 9, true},
+		{"negatrive string", args{"-9"}, 0, false},
+		{"zero", args{"0"}, 0, true},
+
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := StUint32(tt.args.inputString)
+			if got != tt.want {
+				t.Errorf("StUint32() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("StUint32() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
+
+func TestCheckName(t *testing.T) {
+	type args struct {
+		name string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{ "ok", args{"Русское слово"}, true},
+		{ "english", args{"Nerussoe слово"}, false},
+		{ "123", args{"123"}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := CheckName(tt.args.name); got != tt.want {
+				t.Errorf("CheckName() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

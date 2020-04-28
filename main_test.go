@@ -112,27 +112,6 @@ func TestStUint16(t *testing.T) {
 	}
 }
 
-func TestSaveFile(t *testing.T) {
-	type args struct {
-		data interface{}
-		path string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := SaveFile(tt.args.data, tt.args.path); (err != nil) != tt.wantErr {
-				t.Errorf("SaveFile() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
 func TestSafeQM(t *testing.T) {
 	type args struct {
 		str string
@@ -263,26 +242,6 @@ func TestHTTPString(t *testing.T) {
 	}
 }
 
-func TestString_IsOk(t *testing.T) {
-	correctString := String{"&#34;abc&#34;", true}
-	incorrectString := String{"", false}
-	tests := []struct {
-		name   string
-		String *String
-		want   bool
-	}{
-		{`correct`, &correctString, true},
-		{`incorrect`, &incorrectString, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.String.IsOk(); got != tt.want {
-				t.Errorf("String.IsOk() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestString_SetStringByPointer(t *testing.T) {
 	correctString := String{"&#34;abc&#34;", true}
 	var tempString string
@@ -328,7 +287,7 @@ func TestMultipleEqual(t *testing.T) {
 	}
 }
 
-func TestCompare(t *testing.T) {
+func TestCompareTwoStrings(t *testing.T) {
 	type args struct {
 		string1 string
 		string2 string
@@ -343,8 +302,8 @@ func TestCompare(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Compare(tt.args.string1, tt.args.string2); got != tt.want {
-				t.Errorf("Compare() = %v, want %v", got, tt.want)
+			if got := CompareTwoStrings(tt.args.string1, tt.args.string2); got != tt.want {
+				t.Errorf("CompareTwoStrings() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -371,7 +371,7 @@ func TestCheckName(t *testing.T) {
 		want bool
 	}{
 		{ "ok", args{"Русское слово"}, true},
-		{ "english", args{"Nerussoe слово"}, false},
+		{ "english", args{"Nerusskoe слово"}, false},
 		{ "123", args{"123"}, false},
 	}
 	for _, tt := range tests {

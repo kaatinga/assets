@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+
+
 func TestGenPassword(t *testing.T) {
 	type args struct {
 		length byte
@@ -57,6 +59,34 @@ func TestStBool(t *testing.T) {
 	}
 }
 
+func TestStUint64(t *testing.T) {
+	type args struct {
+		inputString string
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantOutput uint64
+		wantOk     bool
+	}{
+		{"correct string 1", args{"99999"}, 99999, true},
+		{"correct string 2", args{"65535"}, 65535, true},
+		{"correct string 3", args{"9"}, 9, true},
+		{"negative string", args{"-9"}, 0, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotOutput, gotOk := StUint64(tt.args.inputString)
+			if gotOutput != tt.wantOutput {
+				t.Errorf("StUint64() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
+			}
+			if gotOk != tt.wantOk {
+				t.Errorf("StUint64() gotOk = %v, want %v", gotOk, tt.wantOk)
+			}
+		})
+	}
+}
+
 func TestStByte(t *testing.T) {
 	type args struct {
 		inputString string
@@ -68,7 +98,8 @@ func TestStByte(t *testing.T) {
 		want1 bool
 	}{
 		{"incorrect string", args{"9999"}, 0, false},
-		{"correct string", args{"9"}, 9, true},
+		{"correct string 1", args{"9"}, 9, true},
+		{"correct string 2", args{"255"}, 255, true},
 		{"zero", args{"0"}, 0, true},
 		{"negatrive string", args{"-9"}, 0, false},
 	}
@@ -96,7 +127,8 @@ func TestStUint16(t *testing.T) {
 		want1 bool
 	}{
 		{"incorrect string", args{"99999"}, 0, false},
-		{"correct string", args{"9"}, 9, true},
+		{"correct string 1", args{"65535"}, 65535, true},
+		{"correct string 2", args{"9"}, 9, true},
 		{"negatrive string", args{"-9"}, 0, false},
 	}
 	for _, tt := range tests {
@@ -321,6 +353,7 @@ func TestCheckUint16(t *testing.T) {
 		{`false 1`, args{"a"}, Uint16{0,false}},
 		{`true 1`, args{"0"}, Uint16{0,true}},
 		{`true 2`, args{"55"}, Uint16{55,true}},
+		{`true 2`, args{"65535"}, Uint16{65535,true}},
 		{`false 2`, args{"65536"}, Uint16{0,false}},
 	}
 	for _, tt := range tests {
@@ -343,7 +376,8 @@ func TestStUint32(t *testing.T) {
 		want1 bool
 	}{
 		{"incorrect string", args{"4294967297"}, 0, false},
-		{"correct string", args{"9"}, 9, true},
+		{"correct string 1 ", args{"429496725"}, 429496725, true},
+		{"correct string 2", args{"9"}, 9, true},
 		{"negatrive string", args{"-9"}, 0, false},
 		{"zero", args{"0"}, 0, true},
 

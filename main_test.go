@@ -378,7 +378,7 @@ func TestStUint32(t *testing.T) {
 		{"incorrect string", args{"4294967297"}, 0, false},
 		{"correct string 1 ", args{"429496725"}, 429496725, true},
 		{"correct string 2", args{"9"}, 9, true},
-		{"negatrive string", args{"-9"}, 0, false},
+		{"negative string", args{"-9"}, 0, false},
 		{"zero", args{"0"}, 0, true},
 
 	}

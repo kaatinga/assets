@@ -10,38 +10,68 @@ import (
 	"unicode"
 )
 
+const (
+	maxUint8  uint64 = 255
+	maxUint16 uint64 = 65535
+	maxUint32 uint64 = 4294967295
+)
+
+// StByte checks and converts input string to Byte type
+func StByte(inputString string) (byte, bool) {
+	var (
+		tmpUint64 uint64 // a temporary int value
+		ok        bool
+	)
+
+	tmpUint64, ok = StUint64(inputString)
+	if ok {
+		if tmpUint64 >= 0 && tmpUint64 <= maxUint8 {
+			return byte(tmpUint64), true
+		}
+	}
+	return 0, false
+}
+
 // StUint16 checks and converts input string to uint16 type
 func StUint16(inputString string) (uint16, bool) {
-	var err error  // to store error result
-	var tmpInt int // a temporary int value
+	var (
+		tmpUint64 uint64 // a temporary int value
+		ok        bool
+	)
 
-	tmpInt, err = strconv.Atoi(inputString)
-	if err == nil {
-		if tmpInt >= 0 && tmpInt < 65536 {
-			return uint16(tmpInt), true
+	tmpUint64, ok = StUint64(inputString)
+	if ok {
+		if tmpUint64 >= 0 && tmpUint64 <= maxUint16 {
+			return uint16(tmpUint64), true
 		}
 	}
+
 	return 0, false
 }
 
-// CheckUint16 checks and converts input string to uint16 type. Return Uint16 struct
-func CheckUint16(inputString string) (output Uint16) {
-	output.Parameter, output.Ok = StUint16(inputString)
-	return
-}
-
-// StUint32 converts input string to uint16 type
+// StUint32 checks and converts input string to uint16 type
 func StUint32(inputString string) (uint32, bool) {
-	var err error  // to store error result
-	var tmpInt int // a temporary int value
+	var (
+		tmpUint64 uint64 // a temporary int value
+		ok        bool
+	)
 
-	tmpInt, err = strconv.Atoi(inputString)
-	if err == nil {
-		if tmpInt >= 0 && tmpInt < 4294967296 {
-			return uint32(tmpInt), true
+	tmpUint64, ok = StUint64(inputString)
+	if ok {
+		if tmpUint64 >= 0 && tmpUint64 <= maxUint32 {
+			return uint32(tmpUint64), true
 		}
 	}
+
 	return 0, false
+}
+
+// StUint64 checks and converts input string to uint64 type
+func StUint64(inputString string) (output uint64, ok bool) {
+	var err error // to store error result
+
+	output, err = strconv.ParseUint(inputString, 10, 64)
+	return output, err == nil
 }
 
 // Uint16 is an extended version of uint16 type
@@ -50,40 +80,37 @@ type Uint16 struct {
 	Ok        bool
 }
 
-// String is an extended version of uint16 type
+// CheckUint16 checks and converts input string to Uint16 struct
+func CheckUint16(inputString string) (output Uint16) {
+	output.Parameter, output.Ok = StUint16(inputString)
+	return
+}
+
+// SetByte checks and sets input string to a given pointer to byte type
+func SetByte(inputByte *byte, inputString string) (ok bool) {
+
+	*inputByte, ok = StByte(inputString)
+	return
+}
+
+// SetUint16 checks and sets input string to a given pointer to uint16 type
+func SetUint16(inputUint16 *uint16, inputString string) (ok bool) {
+
+	*inputUint16, ok = StUint16(inputString)
+	return
+}
+
+// SetUint32 checks and sets input string to a given pointer to uint16 type
+func SetUint32(inputUint32 *uint32, inputString string) (ok bool) {
+
+	*inputUint32, ok = StUint32(inputString)
+	return
+}
+
+// String is an extended version of string type
 type String struct {
 	Parameter string
 	Ok        bool
-}
-
-// SetUint16 checks and sets input string to a given uint16 type
-func SetUint16(inputUint16 *uint16, inputString string) bool {
-	var err error  // to store error result
-	var tmpInt int // a temporary int value
-
-	tmpInt, err = strconv.Atoi(inputString)
-	if err == nil {
-		if tmpInt >= 0 && tmpInt < 65536 {
-			*inputUint16 = uint16(tmpInt)
-			return true
-		}
-	}
-	return false
-}
-
-// SetUint32 checks and sets input string to uint16 type
-func SetUint32(inputUint32 *uint32, inputString string) bool {
-	var err error  // to store error result
-	var tmpInt int // a temporary int value
-
-	tmpInt, err = strconv.Atoi(inputString)
-	if err == nil {
-		if tmpInt >= 0 && tmpInt < 4294967296 {
-			*inputUint32 = uint32(tmpInt)
-			return true
-		}
-	}
-	return false
 }
 
 // SetStringByPointer checks and sets input Strings parameter to a string through a pointer
@@ -95,43 +122,10 @@ func (input *String) SetStringByPointer(output *string) bool {
 	return false
 }
 
-// StByte converts input string to Byte type
-func StByte(inputString string) (byte, bool) {
-	var err error  // to store error result
-	var tmpInt int // a temporary int value
-
-	tmpInt, err = strconv.Atoi(inputString)
-	if err == nil {
-		if tmpInt >= 0 && tmpInt < 256 {
-			return byte(tmpInt), true
-		}
-	}
-	return 0, false
-}
-
-// SetByte checks and sets input string to byte type
-func SetByte(inputByte *byte, inputString string) bool {
-	var err error  // to store error result
-	var tmpInt int // a temporary int value
-
-	tmpInt, err = strconv.Atoi(inputString)
-	if err == nil {
-		if tmpInt >= 0 && tmpInt < 256 {
-			*inputByte = byte(tmpInt)
-			return true
-		}
-	}
-	return false
-}
-
 // StBool converts input string "true" to bool type
 func StBool(inputString string) bool {
 
-	if inputString == "true" || inputString == "on" {
-		return true
-	}
-
-	return false
+	return inputString == "true" || inputString == "on"
 }
 
 // GenPassword generates a password of a set length

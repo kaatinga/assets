@@ -122,7 +122,7 @@ func (input *String) SetStringByPointer(output *string) bool {
 	return false
 }
 
-// StBool converts input string "true" to bool type
+// StBool converts input string to bool type
 func StBool(inputString string) bool {
 
 	return inputString == "true" || inputString == "on"

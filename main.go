@@ -156,7 +156,7 @@ func SetUint16(inputUint16 *uint16, inputString string) (ok bool) {
 // SetUint32 checks and sets input string to a given pointer to uint16 type
 func SetUint32(inputUint32 *uint32, inputString string) (ok bool) {
 
-	*inputUint32, ok = StUint32(inputString)
+	*inputUint32, ok = SuperBytesToUint32(inputString)
 	return
 }
 

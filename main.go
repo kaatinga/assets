@@ -3,6 +3,7 @@ package assets
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -15,6 +16,53 @@ const (
 	maxUint16 uint64 = 65535
 	maxUint32 uint64 = 4294967295
 )
+
+// SuperBytesToUint32 checks and converts input string to uint32 type
+func SuperBytesToUint32(input []byte) (output uint32, ok bool) {
+
+	var output64 uint64
+
+	log.Println("строчное представление input", string(input))
+	log.Println("input", input)
+
+	if input[0] < 48 || input[0] > 57 {
+		return
+	}
+
+MainLoop:
+	for key, value := range input {
+		log.Println("=== байт", value)
+
+		switch key {
+		case 0:
+			log.Println("преобразуем первый байт")
+			output64 = uint64(value) - 48
+			log.Println("промежуточный итог", output64)
+			continue MainLoop
+		default:
+			if value < 48 || value > 57 {
+				log.Println("это неправильное значение", value)
+				ok = true
+				break MainLoop
+			}
+		}
+
+		log.Println("умножаем на 10 и прибавляем")
+		output64 = output64*10 + uint64(value) - 48
+
+		if output64 >= maxUint32 {
+			log.Println("цифра слишком большая!")
+			return 0, false
+		}
+
+		log.Println("промежуточный итог", output64)
+	}
+
+	output = uint32(output64)
+	ok = true
+	log.Println("окончательный итог", output)
+	return
+}
 
 // StByte checks and converts input string to Byte type
 func StByte(inputString string) (byte, bool) {

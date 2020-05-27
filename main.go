@@ -17,7 +17,7 @@ const (
 )
 
 // SuperBytesToUint32 checks and converts input string to uint32 type
-func SuperBytesToUint32(input []byte) (output uint32, ok bool) {
+func SuperBytesToUint32(input string) (output uint32, ok bool) {
 
 	var output64 uint64
 
@@ -28,8 +28,14 @@ func SuperBytesToUint32(input []byte) (output uint32, ok bool) {
 		return
 	}
 
+	var (
+		value rune
+		key int
+	)
+
+
 MainLoop:
-	for key, value := range input {
+	for key, value = range input {
 		//log.Println("=== байт", value)
 
 		switch key {

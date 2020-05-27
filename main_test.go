@@ -418,27 +418,25 @@ func TestCheckName(t *testing.T) {
 }
 
 func TestSuperBytesToUint32(t *testing.T) {
-	type args struct {
-		input []byte
-	}
+
 	tests := []struct {
 		name       string
-		args       args
+		args       string
 		wantOutput uint32
 		wantOk     bool
 	}{
-		{"correct string 42", args{[]byte("42")}, 42, true},
-		{"correct string 12", args{[]byte("12")}, 12, true},
-		{"correct input []byte{49, 50, 13, 10}", args{[]byte{49, 50, 13, 10}}, 12, true},
-		{"correct input []byte{48})", args{[]byte{48}}, 0, true},
-		{"incorrect input []byte{13, 10}", args{[]byte{13, 10}}, 0, false},
-		{"incorrect input []byte{0}", args{[]byte{0}}, 0, false},
-		{"incorrect string 4294967296", args{[]byte("4294967296")}, 0, false},
-		{"incorrect string -1", args{[]byte("-1")}, 0, false},
+		{"correct string 42", "42", 42, true},
+		{"correct string 12", "12", 12, true},
+		{"correct input []byte{49, 50, 13, 10}", string([]byte{49, 50, 13, 10}), 12, true},
+		{"correct input []byte{48})", string([]byte{48}), 0, true},
+		{"incorrect input []byte{13, 10}", string([]byte{13, 10}), 0, false},
+		{"incorrect input []byte{0}", string([]byte{0}), 0, false},
+		{"incorrect string 4294967296", "4294967296", 0, false},
+		{"incorrect string -1", "-1", 0, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotOutput, gotOk := SuperBytesToUint32(tt.args.input)
+			gotOutput, gotOk := SuperBytesToUint32(tt.args)
 			if gotOutput != tt.wantOutput {
 				t.Errorf("SuperBytesToUint32() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}

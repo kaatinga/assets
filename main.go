@@ -172,7 +172,7 @@ func StBool(inputString string) bool {
 }
 
 // GenPassword generates a password of a set length
-func GenPassword(length byte) (str string, err error) {
+func GenPassword(length byte) (string, error) {
 	rand.Seed(time.Now().UnixNano()) // in order to issue really random password
 	chars := []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
 	charsLength := len(chars)
@@ -181,7 +181,10 @@ func GenPassword(length byte) (str string, err error) {
 		length = 7
 	}
 
-	var builder strings.Builder
+	var (
+		builder strings.Builder
+		err error
+	)
 
 	var i byte
 	for ; i < length; i++ {

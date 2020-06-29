@@ -226,8 +226,9 @@ func RemoveSafeQM(str string) (newString string) {
 
 // CheckRussianCompanyName check if an only allowed set of symbols is in the company name
 func CheckRussianCompanyName(company string) (ok bool) {
-	// Russian company can have digits and russian symbols, as well as soon symbols below
-	var symbolRange []*unicode.RangeTable = []*unicode.RangeTable{
+
+	// Russian company can have digits and russian symbols, as well as some symbols below
+	var symbolRange = []*unicode.RangeTable{
 		unicode.Cyrillic,
 		unicode.Digit,
 	}

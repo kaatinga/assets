@@ -201,7 +201,7 @@ func GenPassword(length byte) (string, error) {
 }
 
 // a random number generator that returns a byte
-func getRandomByte(max byte) byte {
+func GetRandomByte(max byte) byte {
 
 	switch max {
 	case 0:

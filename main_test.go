@@ -462,7 +462,7 @@ func Test_getRandomByte(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := getRandomByte(tt.max)
+			got := GetRandomByte(tt.max)
 
 			if got > tt.max {
 				t.Errorf("getRandomByte() got = %v, wants a number not bigger than %v", got, tt.max)

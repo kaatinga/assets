@@ -202,11 +202,13 @@ func GenPassword(length byte) (string, error) {
 
 // a random number generator that returns a byte
 func getRandomByte(max byte) byte {
-	if max == 0 {
-		return 0
-	}
 
-	return byte(rand.Int31n(int32(max)))
+	switch max {
+	case 0:
+		return 0
+	default:
+		return byte(rand.Int31n(int32(max)))
+	}
 }
 
 // SaveFile saves a file

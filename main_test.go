@@ -446,3 +446,25 @@ func TestSuperBytesToUint32(t *testing.T) {
 		})
 	}
 }
+
+func Test_getRandomByte(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		max  byte
+	}{
+		{"ok1", 255,},
+		{"ok2", 100},
+		{"ok3", 1},
+		{"ok4", 0},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := getRandomByte(tt.max)
+
+			if got > tt.max {
+				t.Errorf("getRandomByte() got = %v, wants a number not bigger than %v", got, tt.max)
+			}
+		})
+	}
+}

@@ -16,6 +16,11 @@ const (
 	maxUint32 uint64 = 4294967295
 )
 
+func init() {
+	// in order to issue really random password
+	rand.Seed(time.Now().UnixNano())
+}
+
 // SuperBytesToUint32 checks and converts input string to uint32 type
 func SuperBytesToUint32(input string) (output uint32, ok bool) {
 
@@ -27,7 +32,7 @@ func SuperBytesToUint32(input string) (output uint32, ok bool) {
 
 	var (
 		value rune
-		key int
+		key   int
 	)
 
 MainLoop:
@@ -173,7 +178,6 @@ func StBool(inputString string) bool {
 
 // GenPassword generates a password of a set length
 func GenPassword(length byte) (string, error) {
-	rand.Seed(time.Now().UnixNano()) // in order to issue really random password
 	chars := []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
 	charsLength := len(chars)
 
@@ -183,7 +187,7 @@ func GenPassword(length byte) (string, error) {
 
 	var (
 		builder strings.Builder
-		err error
+		err     error
 	)
 
 	var i byte
@@ -194,6 +198,15 @@ func GenPassword(length byte) (string, error) {
 		}
 	}
 	return builder.String(), nil
+}
+
+// a random number generator that returns a byte
+func getRandomByte(max byte) byte {
+	if max == 0 {
+		return 0
+	}
+
+	return byte(rand.Int31n(int32(max)))
 }
 
 // SaveFile saves a file

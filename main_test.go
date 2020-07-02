@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-
-
 func TestGenPassword(t *testing.T) {
 	type args struct {
 		length byte
@@ -350,11 +348,11 @@ func TestCheckUint16(t *testing.T) {
 		args       args
 		wantOutput Uint16
 	}{
-		{`false 1`, args{"a"}, Uint16{0,false}},
-		{`true 1`, args{"0"}, Uint16{0,true}},
-		{`true 2`, args{"55"}, Uint16{55,true}},
-		{`true 2`, args{"65535"}, Uint16{65535,true}},
-		{`false 2`, args{"65536"}, Uint16{0,false}},
+		{`false 1`, args{"a"}, Uint16{0, false}},
+		{`true 1`, args{"0"}, Uint16{0, true}},
+		{`true 2`, args{"55"}, Uint16{55, true}},
+		{`true 2`, args{"65535"}, Uint16{65535, true}},
+		{`false 2`, args{"65536"}, Uint16{0, false}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -380,7 +378,6 @@ func TestStUint32(t *testing.T) {
 		{"correct string 2", args{"9"}, 9, true},
 		{"negative string", args{"-9"}, 0, false},
 		{"zero", args{"0"}, 0, true},
-
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -404,9 +401,9 @@ func TestCheckName(t *testing.T) {
 		args args
 		want bool
 	}{
-		{ "ok", args{"Русское слово"}, true},
-		{ "english", args{"Nerusskoe слово"}, false},
-		{ "123", args{"123"}, false},
+		{"ok", args{"Русское слово"}, true},
+		{"english", args{"Nerusskoe слово"}, false},
+		{"123", args{"123"}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -450,13 +447,18 @@ func TestSuperBytesToUint32(t *testing.T) {
 func Test_getRandomByte(t *testing.T) {
 
 	tests := []struct {
-		name  string
+		name string
 		max  byte
 	}{
-		{"ok1", 255,},
+		{"ok1", 255},
 		{"ok2", 100},
-		{"ok3", 1},
-		{"ok4", 0},
+		{"ok3", 100},
+		{"ok4", 100},
+		{"ok5", 100},
+		{"ok6", 100},
+		{"ok7", 100},
+		{"ok8", 1},
+		{"ok9", 0},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

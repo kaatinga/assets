@@ -300,17 +300,25 @@ func TestMultipleEqual(t *testing.T) {
 		bools []bool
 	}
 	tests := []struct {
-		name string
-		args args
-		want byte
+		name    string
+		args    args
+		want    bool
+		wantErr bool
 	}{
-		{`all true`, args{[]bool{true, true, true, true}}, 2},
-		{`all false`, args{[]bool{false, false, false, false}}, 1},
-		{`true and false`, args{[]bool{true, false, true, false}}, 3},
+		{`all true`, args{[]bool{true, true, true, true}}, true, false},
+		{`all false`, args{[]bool{false, false, false, false}}, true, false},
+		{`true and false`, args{[]bool{true, true, true, false}}, false, false},
+		{`too short`, args{[]bool{true}}, false, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MultipleEqual(tt.args.bools...); got != tt.want {
+
+			got, err := MultipleEqual(tt.args.bools...)
+			if tt.wantErr != (err != nil) {
+				t.Errorf("MultipleEqual() returned error, but did not have to")
+			}
+
+			if got != tt.want {
 				t.Errorf("MultipleEqual() = %v, want %v", got, tt.want)
 			}
 		})

@@ -2,6 +2,7 @@ package assets
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"math/rand"
 	"strconv"
@@ -292,37 +293,30 @@ func HTTPString(input string) (output String) {
 		return output
 	}
 	output.Ok = true
-	output.Parameter = strings.TrimSpace(input)
-	output.Parameter = strings.Replace(output.Parameter, "\"", "&#34;", -1)
+	output.Parameter = strings.Replace(strings.TrimSpace(input), "\"", "&#34;", -1)
 	return
 }
 
 // MultipleEqual checks all the bool parameters and returns a result
-func MultipleEqual(bools ...bool) byte {
+func MultipleEqual(bools ...bool) (bool, error) {
 
-	var previous byte
-	var previousBool bool
-	for _, value := range bools {
-		if previous == 0 {
-			previousBool = value
-			if value == true {
-				previous = 2
-			}
-
-			previous = 1
-			continue
-		}
-
-		if previousBool != value {
-			return 3 // 3 means the values are not equal
-		}
+	if len(bools) > 255 {
+		return false, errors.New("the number of input values exceeds 255")
 	}
 
-	if previousBool == false {
-		return 1 // 1 = false
+	var equal bool = true
+	var length = byte(len(bools))
+
+	if length < 2 {
+		return false, errors.New("the number of input values is less then 2")
 	}
 
-	return 2 // 2 = true
+	var i byte = 1
+	for ; equal && i < length; i++ {
+		equal = bools[i] == bools[i-1]
+	}
+
+	return equal, nil
 }
 
 // CompareTwoStrings compares two string

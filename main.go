@@ -73,11 +73,10 @@ func StByte(inputString string) (byte, bool) {
 	)
 
 	tmpUint64, ok = StUint64(inputString)
-	if ok {
-		if tmpUint64 >= 0 && tmpUint64 <= maxUint8 {
-			return byte(tmpUint64), true
-		}
+	if ok && tmpUint64 <= maxUint8 {
+		return byte(tmpUint64), true
 	}
+
 	return 0, false
 }
 
@@ -89,10 +88,8 @@ func StUint16(inputString string) (uint16, bool) {
 	)
 
 	tmpUint64, ok = StUint64(inputString)
-	if ok {
-		if tmpUint64 >= 0 && tmpUint64 <= maxUint16 {
-			return uint16(tmpUint64), true
-		}
+	if ok && tmpUint64 <= maxUint16 {
+		return uint16(tmpUint64), true
 	}
 
 	return 0, false
@@ -106,10 +103,8 @@ func StUint32(inputString string) (uint32, bool) {
 	)
 
 	tmpUint64, ok = StUint64(inputString)
-	if ok {
-		if tmpUint64 >= 0 && tmpUint64 <= maxUint32 {
-			return uint32(tmpUint64), true
-		}
+	if ok && tmpUint64 <= maxUint32 {
+		return uint32(tmpUint64), true
 	}
 
 	return 0, false
@@ -131,6 +126,7 @@ type Uint16 struct {
 
 // CheckUint16 checks and converts input string to Uint16 struct
 func CheckUint16(inputString string) (output Uint16) {
+
 	output.Parameter, output.Ok = StUint16(inputString)
 	return
 }
@@ -228,7 +224,7 @@ func SaveFile(data interface{}, path string) (err error) {
 	return nil
 }
 
-// SafeQM escapes quatation marks adding '\' before them
+// SafeQM escapes quotation marks adding '\' before them
 func SafeQM(str string) (newString string) {
 	newString = strings.Replace(str, `"`, `\"`, -1)
 	return
@@ -288,12 +284,12 @@ func RemoveCharacters(input, characters string) string {
 
 // HTTPString removes all leading and trailing white space and replace quotation marks with &#34;
 func HTTPString(input string) (output String) {
-	if input == "" {
-		output.Ok = false
-		return output
+	switch input {
+	case "":
+	default:
+		output.Ok = true
+		output.Parameter = strings.Replace(strings.TrimSpace(input), "\"", "&#34;", -1)
 	}
-	output.Ok = true
-	output.Parameter = strings.Replace(strings.TrimSpace(input), "\"", "&#34;", -1)
 	return
 }
 

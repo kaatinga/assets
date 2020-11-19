@@ -230,7 +230,7 @@ func SafeQM(str string) (newString string) {
 	return
 }
 
-// RemoveSafeQM removes symbols '\' before quatation marks
+// RemoveSafeQM removes symbols '\' before quotation marks
 func RemoveSafeQM(str string) (newString string) {
 	newString = strings.Replace(str, `\"`, `"`, -1)
 	return
@@ -318,4 +318,15 @@ func MultipleEqual(bools ...bool) (bool, error) {
 // CompareTwoStrings compares two string
 func CompareTwoStrings(string1, string2 string) bool {
 	return string1 == string2
+}
+
+// Days returns number of days in a month
+func Days(month time.Time) int {
+	month = month.AddDate(0,1,0)
+	timeToGetLastDay := Date(month.Year(), 0, month.Month())
+	return timeToGetLastDay.Day()
+}
+
+func Date(year, day int, month time.Month) time.Time {
+	return time.Date(year, month, day, 0, 0, 0, 0, time.UTC)
 }

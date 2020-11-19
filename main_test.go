@@ -3,6 +3,7 @@ package assets
 import (
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestGenPassword(t *testing.T) {
@@ -474,6 +475,28 @@ func Test_getRandomByte(t *testing.T) {
 
 			if got > tt.max {
 				t.Errorf("getRandomByte() got = %v, wants a number not bigger than %v", got, tt.max)
+			}
+		})
+	}
+}
+
+func TestDays(t *testing.T) {
+
+	goodTime1, _ := time.Parse(time.RFC1123, "Wed, 02 Dec 2020 00:00:00 UTC")
+	goodTime2, _ := time.Parse(time.RFC1123, "Wed, 01 Feb 2000 00:00:00 UTC")
+
+	tests := []struct {
+		name string
+		month time.Time
+		want int
+	}{
+		{"ok1", goodTime1, 31 },
+		{"ok2", goodTime2, 29 },
+	}
+		for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Days(tt.month); got != tt.want {
+				t.Errorf("Days() = %v, want %v", got, tt.want)
 			}
 		})
 	}

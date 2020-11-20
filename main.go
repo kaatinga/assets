@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -327,6 +328,15 @@ func Days(month time.Time) int {
 	return timeToGetLastDay.Day()
 }
 
+// Date is a shorter version of the time.Date() function
 func Date(year, day int, month time.Month) time.Time {
 	return time.Date(year, month, day, 0, 0, 0, 0, time.UTC)
+}
+
+// Checks if the input email is valid
+func IsEmailValid(email string) bool {
+	if len(email) < 3 && len(email) > 254 {
+		return false
+	}
+	return regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$").MatchString(email)
 }

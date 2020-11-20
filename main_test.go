@@ -486,17 +486,37 @@ func TestDays(t *testing.T) {
 	goodTime2, _ := time.Parse(time.RFC1123, "Wed, 01 Feb 2000 00:00:00 UTC")
 
 	tests := []struct {
-		name string
+		name  string
 		month time.Time
-		want int
+		want  int
 	}{
-		{"ok1", goodTime1, 31 },
-		{"ok2", goodTime2, 29 },
+		{"ok1", goodTime1, 31},
+		{"ok2", goodTime2, 29},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Days(tt.month); got != tt.want {
 				t.Errorf("Days() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsEmailValid(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		email string
+		want  bool
+	}{
+		{"ok", "test@golangcode.com", true},
+		{"!ok1", "test", false},
+		{"!ok2", "123@1???--23", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsEmailValid(tt.email); got != tt.want {
+				t.Errorf("IsEmailValid() = %v, want %v", got, tt.want)
 			}
 		})
 	}

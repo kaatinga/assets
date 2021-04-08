@@ -323,7 +323,7 @@ func CompareTwoStrings(string1, string2 string) bool {
 
 // Days returns number of days in a month
 func Days(month time.Time) int {
-	month = month.AddDate(0,1,0)
+	month = month.AddDate(0, 1, 0)
 	timeToGetLastDay := Date(month.Year(), 0, month.Month())
 	return timeToGetLastDay.Day()
 }
@@ -340,3 +340,78 @@ func IsEmailValid(email string) bool {
 	}
 	return regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$").MatchString(email)
 }
+
+var uint16sizes = []uint16{
+	1: 10,
+	2: 100,
+	3: 1000,
+	4: 10000,
+}
+
+const (
+	ten         uint16 = 10
+	hundred     uint16 = 100
+	thousand    uint16 = 1000
+	tenThousand uint16 = 10000
+)
+
+// Uint16String converts an uint16 number to string.
+func Uint16String(num uint16) []byte {
+
+	convertedNumber, i := getSliceUint16(num)
+
+	//defer func() {
+	//	fmt.Println("length:", i)
+	//	fmt.Println("result:", string(convertedNumber))
+	//	fmt.Println("result:", convertedNumber)
+	//	fmt.Println("capacity:", cap(convertedNumber))
+	//}()
+
+	for {
+		convertedNumber[i] = byte(num%10) + 0x30
+		num = num / 10
+		if i == 0 {
+			return convertedNumber
+		}
+		i--
+	}
+}
+
+func getSliceUint16(num uint16) ([]byte, int) {
+	if num < ten {
+		return make([]byte, 1), 0
+	}
+
+	if num < hundred {
+		return make([]byte, 2), 1
+	}
+
+	if num < thousand {
+		return make([]byte, 3), 2
+	}
+
+	if num < tenThousand {
+		return make([]byte, 4), 3
+	}
+
+	return make([]byte, 5), 4
+}
+
+//func getSize(num uint16, size int) int {
+//	if size == 5 {
+//		return size
+//	}
+//	if num < uint16sizes[size] {
+//		return size
+//	}
+//	return getSize(num, size+1)
+//}
+//
+//func convertNumber(convertedNumber []byte, i int, num uint16) {
+//	convertedNumber[i] = byte(num%10) + 0x30
+//	num = num / 10
+//	if num == 0 {
+//		return
+//	}
+//	convertNumber(convertedNumber, i-1, num)
+//}

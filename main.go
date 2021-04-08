@@ -355,8 +355,8 @@ const (
 	tenThousand uint16 = 10000
 )
 
-// Uint16String converts an uint16 number to string.
-func Uint16String(num uint16) []byte {
+// Uint162Bytes converts an uint16 number to string.
+func Uint162Bytes(num uint16) []byte {
 
 	convertedNumber, i := getSliceUint16(num)
 
@@ -408,3 +408,35 @@ func getSliceUint16(num uint16) ([]byte, int) {
 //	}
 //	convertNumber(convertedNumber, i-1, num)
 //}
+
+// Byte2Bytes converts an uint16 number to string.
+func Byte2Bytes(num byte) []byte {
+
+	convertedNumber, i := getSliceByte(num)
+
+	for {
+		convertedNumber[i] = num%10 + 0x30
+		num = num / 10
+		if i == 0 {
+			return convertedNumber
+		}
+		i--
+	}
+}
+
+const (
+	byteTen     byte = 10
+	byteHundred byte = 100
+)
+
+func getSliceByte(num byte) ([]byte, int) {
+	if num < byteTen {
+		return make([]byte, 1), 0
+	}
+
+	if num < byteHundred {
+		return make([]byte, 2), 1
+	}
+
+	return make([]byte, 3), 2
+}

@@ -360,13 +360,6 @@ func Uint16String(num uint16) []byte {
 
 	convertedNumber, i := getSliceUint16(num)
 
-	//defer func() {
-	//	fmt.Println("length:", i)
-	//	fmt.Println("result:", string(convertedNumber))
-	//	fmt.Println("result:", convertedNumber)
-	//	fmt.Println("capacity:", cap(convertedNumber))
-	//}()
-
 	for {
 		convertedNumber[i] = byte(num%10) + 0x30
 		num = num / 10

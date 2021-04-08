@@ -522,7 +522,7 @@ func TestIsEmailValid(t *testing.T) {
 	}
 }
 
-func TestUint16String(t *testing.T) {
+func TestUint162Bytes(t *testing.T) {
 
 	tests := []struct {
 		result string
@@ -532,6 +532,7 @@ func TestUint16String(t *testing.T) {
 		{"1999", 1999},
 		{"222", 222},
 		{"1", 1},
+		{"0", 0},
 		{"55555", 55555},
 		{"12345", 12345},
 		{"10000", 10000},
@@ -539,9 +540,34 @@ func TestUint16String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.result, func(t *testing.T) {
-			got := Uint16String(tt.num)
+			got := Uint162Bytes(tt.num)
 			if !reflect.DeepEqual(got, []byte(tt.result)) {
-				t.Errorf("Uint16String() = %v, want %v", string(got), tt.result)
+				t.Errorf("Uint162Bytes() = %v, want %v", string(got), tt.result)
+			}
+		})
+	}
+}
+
+func TestByte2Bytes(t *testing.T) {
+
+	tests := []struct {
+		result string
+		num    byte
+	}{
+		{"199", 199},
+		{"99", 99},
+		{"100", 100},
+		{"255", 255},
+		{"222", 222},
+		{"0", 0},
+		{"9", 9},
+		{"10", 10},
+		{"1", 1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.result, func(t *testing.T) {
+			if got := Byte2Bytes(tt.num); !reflect.DeepEqual(got, []byte(tt.result)) {
+				t.Errorf("Byte2Bytes() = %v, want %v", got, tt.result)
 			}
 		})
 	}

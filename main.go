@@ -370,6 +370,21 @@ func Uint162Bytes(num uint16) []byte {
 	}
 }
 
+// Uint162String converts an uint16 number to string.
+func Uint162String(num uint16) string {
+
+	convertedNumber, i := getSliceUint16(num)
+
+	for {
+		convertedNumber[i] = byte(num%10) + 0x30
+		num = num / 10
+		if i == 0 {
+			return string(convertedNumber)
+		}
+		i--
+	}
+}
+
 func getSliceUint16(num uint16) ([]byte, int) {
 	if num < ten {
 		return make([]byte, 1), 0

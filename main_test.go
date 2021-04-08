@@ -521,3 +521,28 @@ func TestIsEmailValid(t *testing.T) {
 		})
 	}
 }
+
+func TestUint16String(t *testing.T) {
+
+	tests := []struct {
+		result string
+		num    uint16
+	}{
+		{"199", 199},
+		{"1999", 1999},
+		{"222", 222},
+		{"1", 1},
+		{"55555", 55555},
+		{"12345", 12345},
+		{"10000", 10000},
+		{"9999", 9999},
+	}
+	for _, tt := range tests {
+		t.Run(tt.result, func(t *testing.T) {
+			got := Uint16String(tt.num)
+			if !reflect.DeepEqual(got, []byte(tt.result)) {
+				t.Errorf("Uint16String() = %v, want %v", string(got), tt.result)
+			}
+		})
+	}
+}

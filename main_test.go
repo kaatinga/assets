@@ -572,3 +572,28 @@ func TestByte2Bytes(t *testing.T) {
 		})
 	}
 }
+
+func TestByte2String(t *testing.T) {
+
+	tests := []struct {
+		result string
+		num    byte
+	}{
+		{"199", 199},
+		{"99", 99},
+		{"100", 100},
+		{"255", 255},
+		{"222", 222},
+		{"0", 0},
+		{"9", 9},
+		{"10", 10},
+		{"1", 1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.result, func(t *testing.T) {
+			if got := Byte2String(tt.num); !reflect.DeepEqual(got, tt.result) {
+				t.Errorf("Byte2Bytes() = %v, want %v", got, tt.result)
+			}
+		})
+	}
+}

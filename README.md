@@ -9,14 +9,14 @@ The functions are faster alternative to strconv.Atoi().
 ```
 cpu: Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz
 BenchmarkString2Byte
-BenchmarkString2Byte-8                        	447266503	       2.612 ns/op	       0 B/op	       0 allocs/op
+BenchmarkString2Byte-8                        	775535930	  1.519 ns/op	   0 B/op	   0 allocs/op
 BenchmarkString2Uint32
-BenchmarkString2Uint32-8                      	126690867	       9.335 ns/op	       0 B/op	       0 allocs/op
+BenchmarkString2Uint32-8                      	177936165	  6.592 ns/op	   0 B/op	   0 allocs/op
 BenchmarkStrvconv_Atoi
-BenchmarkStrvconv_Atoi-8                      	 64822033	       17.99 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStrvconv_Atoi-8                      	64663167	  18.33 ns/op	   0 B/op	   0 allocs/op
 BenchmarkBytes2Uint32
-BenchmarkBytes2Uint32-8                       	131627535	       9.239 ns/op	       0 B/op	       0 allocs/op
+BenchmarkBytes2Uint32-8                       	202709667	  5.853 ns/op	   0 B/op	   0 allocs/op
 BenchmarkStrvconv_AtoiPlusBytesConversion
-BenchmarkStrvconv_AtoiPlusBytesConversion-8   	 11436552	       103.1 ns/op	      54 B/op	       3 allocs/op
+BenchmarkStrvconv_AtoiPlusBytesConversion-8   	10781844	  104.4 ns/op	   54 B/op	   3 allocs/op
 PASS
 ```

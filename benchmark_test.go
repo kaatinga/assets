@@ -70,3 +70,21 @@ func BenchmarkStrvconv_Atoi(b *testing.B) {
 		strconv.Atoi("66555")
 	}
 }
+
+func BenchmarkBytes2Uint32(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		Bytes2Uint32([]byte{0})
+		Bytes2Uint32([]byte{0x30, 0x31, 0x32})
+		Bytes2Uint32([]byte{0x36, 0x36, 0x35, 0x35, 0x35})
+	}
+}
+
+func BenchmarkStrvconv_AtoiPlusBytesConversion(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		strconv.Atoi(string([]byte{0}))
+		strconv.Atoi(string([]byte{0x30, 0x31, 0x32}))
+		strconv.Atoi(string([]byte{0x30, 0x31, 0x32}))
+	}
+}

@@ -20,10 +20,6 @@ func String2Uint32(input string) (output uint32, err error) {
 	var i int
 	for {
 
-		if i == len(input) {
-			break
-		}
-
 		if input[i] < 0x30 || input[i] > 0x39 {
 			return 0, ErrNotUint32
 		}
@@ -35,6 +31,10 @@ func String2Uint32(input string) (output uint32, err error) {
 		}
 
 		i++
+
+		if i == len(input) {
+			break
+		}
 	}
 
 	return
@@ -54,10 +54,6 @@ func Bytes2Uint32(input []byte) (output uint32, err error) {
 	var i int
 	for {
 
-		if i == len(input) {
-			break
-		}
-
 		if input[i] < 0x30 || input[i] > 0x39 {
 			return 0, ErrNotUint32
 		}
@@ -69,6 +65,10 @@ func Bytes2Uint32(input []byte) (output uint32, err error) {
 		}
 
 		i++
+
+		if i == len(input) {
+			break
+		}
 	}
 
 	return
@@ -77,29 +77,30 @@ func Bytes2Uint32(input []byte) (output uint32, err error) {
 // String2Byte checks and converts input string to uint32 type.
 func String2Byte(input string) (output byte, err error) {
 
-	length := len(input)
-	if length&^ByteLengthMask != 0 {
+	if len(input)&^ByteLengthMask != 0 {
 		return 0, ErrNotByte
 	}
 
 	var i int
 	for {
 
-		if i == length {
-			break
-		}
-
 		if input[i] < 0x30 || input[i] > 0x39 {
-			return 0, ErrNotByte
+			err = ErrNotByte
+			return
 		}
 
 		output = (output << 3) + (output << 1) + input[i]&UnicodeMaskByte
 
 		if output == 0 && i > 1 {
-			return 0, ErrNumberExceedMaxByteValue
+			err = ErrNumberExceedMaxByteValue
+			return
 		}
 
 		i++
+
+		if i == len(input) {
+			break
+		}
 	}
 
 	return output, nil

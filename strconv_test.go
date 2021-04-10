@@ -14,6 +14,7 @@ func TestString2Uint32(t *testing.T) {
 		{"correct string 12", "12", 12, nil},
 		{"correct input 012", "012", 12, nil},
 		{"correct input 0)", "0", 0, nil},
+		{"correct string 4294967295", "4294967295", 4294967295, nil},
 		{"incorrect input []byte{13, 10}", string([]byte{13, 10}), 0, ErrNotUint32},
 		{"incorrect input []byte{0}", string([]byte{0}), 0, ErrNotUint32},
 		{"incorrect string 4294967296", "4294967296", 0, ErrNumberExceedMaxUint32Value},
@@ -30,6 +31,16 @@ func TestString2Uint32(t *testing.T) {
 			}
 			if gotOutput != tt.wantOutput {
 				t.Errorf("String2Uint32() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
+			}
+
+			gotOutput, err = Bytes2Uint32([]byte(tt.input))
+			if err != tt.wantErr {
+				t.Errorf("Bytes2Uint32() error = %v, wantErr %v", err, tt.wantErr)
+				t.Log(gotOutput)
+				return
+			}
+			if gotOutput != tt.wantOutput {
+				t.Errorf("Bytes2Uint32() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}
 		})
 	}

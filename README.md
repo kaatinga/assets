@@ -17,6 +17,6 @@ BenchmarkStrvconv_Atoi-8                      	 64822033	       17.99 ns/op	    
 BenchmarkBytes2Uint32
 BenchmarkBytes2Uint32-8                       	131627535	       9.239 ns/op	       0 B/op	       0 allocs/op
 BenchmarkStrvconv_AtoiPlusBytesConversion
-BenchmarkStrvconv_AtoiPlusBytesConversion-8   	 11436552	       103.1 ns/op	      54 B/op	       3 allocs/op      3 allocs/op
+BenchmarkStrvconv_AtoiPlusBytesConversion-8   	 11436552	       103.1 ns/op	      54 B/op	       3 allocs/op
 PASS
 ```

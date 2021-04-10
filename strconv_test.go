@@ -14,7 +14,7 @@ func TestString2Uint32(t *testing.T) {
 		{"correct string 42", "42", 42, nil, nil},
 		{"correct string 12", "12", 12, nil, nil},
 		{"correct input 012", "012", 12, nil, nil},
-		{"correct input 0)", "0", 0, nil, nil},
+		{"correct input 0", "0", 0, nil, nil},
 		{"correct string 4294967295", "4294967295", 4294967295, nil, nil},
 		{"incorrect input []byte{13, 10}", string([]byte{13, 10}), 0, ErrNotUint32, ErrNotByte},
 		{"incorrect input []byte{0}", string([]byte{0}), 0, ErrNotUint32, ErrNotByte},

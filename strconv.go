@@ -2,7 +2,7 @@ package assets
 
 const (
 	UnicodeMaskUint32 uint32 = 0xf
-	UnicodeMaskByte   byte   = 0xf
+	UnicodeMaskUint16 uint16 = 0xf
 	ByteLengthMask    int    = 0x3
 )
 
@@ -75,25 +75,23 @@ func Bytes2Uint32(input []byte) (output uint32, err error) {
 }
 
 // String2Byte checks and converts input string to uint32 type.
-func String2Byte(input string) (output byte, err error) {
+func String2Byte(input string) (byte, error) {
 
 	if len(input)&^ByteLengthMask != 0 {
 		return 0, ErrNotByte
 	}
 
 	var i int
+	var output uint16
 	for {
-
 		if input[i] < 0x30 || input[i] > 0x39 {
-			err = ErrNotByte
-			return
+			return 0, ErrNotByte
 		}
 
-		output = (output << 3) + (output << 1) + input[i]&UnicodeMaskByte
-
-		if output == 0 && i > 1 {
-			err = ErrNumberExceedMaxByteValue
-			return
+		output = uint16(input[i])&UnicodeMaskUint16 + (output << 3) + (output << 1)
+		
+		if output&^0xff != 0 {
+			return 0, ErrNumberExceedMaxByteValue
 		}
 
 		i++
@@ -103,5 +101,5 @@ func String2Byte(input string) (output byte, err error) {
 		}
 	}
 
-	return output, nil
+	return byte(output), nil
 }

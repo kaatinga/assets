@@ -18,11 +18,11 @@ var errorDescriptions = []string{
 
 const (
 
-	// String2Uint32 errors:
+	// Uint32 conversion errors
 	ErrNotUint32 IntError = iota
 	ErrNumberExceedMaxUint32Value
 
-	// String2Byte errors:
+	// Byte conversion errors
 	ErrNotByte
 	ErrNumberExceedMaxByteValue
 )

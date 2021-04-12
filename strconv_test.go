@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestString2Uint32(t *testing.T) {
+func Test2Uint32(t *testing.T) {
 
 	tests := []struct {
 		name          string
@@ -22,20 +22,13 @@ func TestString2Uint32(t *testing.T) {
 		{"incorrect input []byte{13, 10}", string([]byte{13, 10}), 0, ErrNotUint32, ErrNotByte},
 		{"incorrect input []byte{0}", string([]byte{0}), 0, ErrNotUint32, ErrNotByte},
 		{"incorrect string 4294967296", "4294967296", 0, ErrNumberExceedMaxUint32Value, ErrNotByte},
-		{"incorrect string 25549672951", "25549672951", 0, ErrNumberExceedMaxUint32Value, ErrNotByte},
-		{"incorrect string 429496729612", "429496729612", 0, ErrNumberExceedMaxUint32Value, ErrNotByte},
+		{"incorrect string 25549672951", "25549672951", 0, ErrNotUint32, ErrNotByte},
+		{"incorrect string 429496729612", "429496729612", 0, ErrNotUint32, ErrNotByte},
 		{"incorrect string -1", "-1", 0, ErrNotUint32, ErrNotByte},
+		{"incorrect empty string", "", 0, ErrNotUint32, ErrNotByte},
 	}
 
-	gotOutputByte, err := String2Byte("257")
-	if err != ErrNumberExceedMaxByteValue {
-		t.Errorf("String2Byte() error\nhave '%v'\nwant '%v'", err, ErrNumberExceedMaxByteValue)
-		t.Log("got number:", gotOutputByte, "sample: 257")
-		return
-	}
-	if gotOutputByte != 0 {
-		t.Errorf("String2Byte() gotOutput = %v, want %v", gotOutputByte, 0)
-	}
+	var err error
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -55,26 +48,61 @@ func TestString2Uint32(t *testing.T) {
 			if gotOutput != tt.wantOutput {
 				t.Errorf("Bytes2Uint32() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}
-
-			if tt.wantOutput < 255 {
-				gotOutputByte, err = String2Byte(tt.input)
-				if err != tt.wantErrByte {
-					t.Errorf("String2Byte() error\nhave '%v'\nwant '%v'", err, tt.wantErrByte)
-					t.Log(gotOutputByte)
-					return
-				}
-				if gotOutputByte != byte(tt.wantOutput) {
-					t.Errorf("String2Byte() gotOutput = %v, want %v", gotOutputByte, tt.wantOutput)
-					t.FailNow()
-				} else {
-					t.Log("byte is ok!")
-				}
-			}
 		})
 	}
 }
 
-func TestString2Byte(t *testing.T) {
+func Test2Uint32_2(t *testing.T) {
+
+	var stringValue string
+	var value int
+	var value3 uint32
+	var err error
+	for i := uint64(0); i < 10000000000; i=i+10001 {
+		stringValue = strconv.FormatUint(i, 10)
+		value, _ = strconv.Atoi(stringValue)
+
+		value3, err = String2Uint32(stringValue)
+		if i < 4294967296 {
+			if err != nil {
+				t.Errorf("String2Uint32() error = %v, want %v", err, nil)
+			}
+
+			if uint32(value) != value3 {
+				t.Errorf("String2Uint32() value = %v, want %v", value3, value)
+			}
+		} else {
+			if err == nil {
+				t.Error("String2Uint32() must have an error")
+			}
+
+			if 0 != value3 {
+				t.Errorf("String2Uint32() value = %v, want 0, i = %v", value3, i)
+			}
+		}
+
+		value3, err = Bytes2Uint32([]byte(stringValue))
+		if i < 4294967296 {
+			if err != nil {
+				t.Errorf("Bytes2Uint32() error = %v, want %v", err, nil)
+			}
+
+			if uint32(value) != value3 {
+				t.Errorf("Bytes2Uint32() value = %v, want %v", value3, value)
+			}
+		} else {
+			if err == nil {
+				t.Error("Bytes2Uint32() must have an error")
+			}
+
+			if 0 != value3 {
+				t.Errorf("Bytes2Uint32() value = %v, want %v, i %v", value3, 0, i)
+			}
+		}
+	}
+}
+
+func Test2Byte(t *testing.T) {
 
 	var stringValue string
 	var value int
@@ -103,6 +131,23 @@ func TestString2Byte(t *testing.T) {
 			}
 		}
 
-		//fmt.Println("ok!", i)
+		value3, err = Bytes2Byte([]byte(stringValue))
+		if i < 256 {
+			if err != nil {
+				t.Errorf("Bytes2Byte() error = %v, want %v", err, nil)
+			}
+
+			if byte(value) != value3 {
+				t.Errorf("Bytes2Byte() value = %v, want %v", value3, value)
+			}
+		} else {
+			if err == nil {
+				t.Error("Bytes2Byte() must have an error")
+			}
+
+			if 0 != value3 {
+				t.Errorf("Bytes2Byte() value = %v, want %v, i %v", value3, 0, i)
+			}
+		}
 	}
 }

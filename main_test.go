@@ -23,7 +23,7 @@ func TestGenPassword(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotStr, err := GenPassword(tt.args.length)
-			ok := (err != nil)
+			ok := err != nil
 			if ok != tt.wantErr {
 				t.Errorf("GenPassword() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -100,7 +100,7 @@ func TestStByte(t *testing.T) {
 		{"correct string 1", args{"9"}, 9, true},
 		{"correct string 2", args{"255"}, 255, true},
 		{"zero", args{"0"}, 0, true},
-		{"negatrive string", args{"-9"}, 0, false},
+		{"negative string", args{"-9"}, 0, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -128,7 +128,7 @@ func TestStUint16(t *testing.T) {
 		{"incorrect string", args{"99999"}, 0, false},
 		{"correct string 1", args{"65535"}, 65535, true},
 		{"correct string 2", args{"9"}, 9, true},
-		{"negatrive string", args{"-9"}, 0, false},
+		{"negative string", args{"-9"}, 0, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -197,7 +197,7 @@ func TestCheckRussianCompanyName(t *testing.T) {
 		{`string2`, args{"ООО «Про&+ба»"}, true},
 		{`string+digits2`, args{"ООО «а-б1-в»"}, true},
 		{`string3`, args{"ООО \"а&бв\""}, true},
-		{`englishstring`, args{"ООО «Company»"}, false},
+		{`english string`, args{"ООО «Company»"}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

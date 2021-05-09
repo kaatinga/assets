@@ -180,9 +180,8 @@ func CheckRussianCompanyName(company string) bool {
 	}
 
 	company = RemoveCharacters(company, "& \"+-»«") // to remove a set of allowed symbols
-	companyRune := []rune(company)
 
-	for _, value := range companyRune {
+	for _, value := range company {
 		if !unicode.IsOneOf(symbolRange, value) {
 			return false
 		}
@@ -194,9 +193,8 @@ func CheckRussianCompanyName(company string) bool {
 // CheckName check if an only allowed set of symbols is in the string
 func CheckName(name string) bool {
 	name = RemoveCharacters(name, " ") // to remove space
-	nameRune := []rune(name)
 
-	for _, value := range nameRune {
+	for _, value := range name {
 		if !unicode.In(value, unicode.Cyrillic) {
 			return false
 		}

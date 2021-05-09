@@ -7,24 +7,22 @@ import (
 )
 
 func TestGenPassword(t *testing.T) {
-	type args struct {
-		length byte
-	}
+
 	tests := []struct {
 		name      string
-		args      args
+		length byte
 		strLength int
 		wantErr   bool
 	}{
-		{"Zero value", args{0}, 7, false},
-		{"6", args{6}, 6, false},
-		{"16", args{16}, 16, false},
+		{"Zero value", 0, 7, false},
+		{"6", 6, 6, false},
+		{"16", 16, 16, false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotStr, err := GenPassword(tt.args.length)
+			gotStr, err := GenPassword(tt.length)
 			ok := err != nil
 			if ok != tt.wantErr {
 				t.Errorf("GenPassword() error = %v, wantErr %v", err, tt.wantErr)

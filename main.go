@@ -89,24 +89,10 @@ func CheckUint16(inputString string) (output Uint16) {
 	return
 }
 
-// SetByte checks and sets input string to a given pointer to byte type
-func SetByte(inputByte *byte, inputString string) (ok bool) {
-
-	*inputByte, ok = StByte(inputString)
-	return
-}
-
-// SetUint16 checks and sets input string to a given pointer to uint16 type
+// SetUint16 checks and sets input string to a given pointer to uint16 type.
 func SetUint16(inputUint16 *uint16, inputString string) (ok bool) {
 
 	*inputUint16, ok = StUint16(inputString)
-	return
-}
-
-// SetUint32 checks and sets input string to a given pointer to uint16 type
-func SetUint32(inputUint32 *uint32, inputString string) (ok bool) {
-
-	*inputUint32, ok = SuperBytesToUint32(inputString)
 	return
 }
 

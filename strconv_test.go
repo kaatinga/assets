@@ -180,6 +180,16 @@ func TestBytes2Uint16(t *testing.T) {
 				t.Errorf("Bytes2Uint16() got = %v, want %v", got, tt.want)
 			}
 
+			got, err = String2Uint16(string(tt.input))
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Bytes2Uint16() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Bytes2Uint16() got = %v, want %v", got, tt.want)
+			}
+
+
 			if err != nil {
 				t.Log(err)
 			}

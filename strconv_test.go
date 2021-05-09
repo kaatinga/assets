@@ -166,6 +166,7 @@ func TestBytes2Uint16(t *testing.T) {
 		{[]byte("16000"), 16000, false},
 		{[]byte("66535"), 0, true},
 		{[]byte("160000"), 0, true},
+		{[]byte("abc"), 0, true},
 	}
 
 	// nolint:scopelint

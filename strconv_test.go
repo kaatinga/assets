@@ -59,7 +59,7 @@ func Test2Uint32_2(t *testing.T) {
 	var value int
 	var value3 uint32
 	var err error
-	for i := uint64(0); i < 10000000000; i=i+10001 {
+	for i := uint64(0); i < 10000000000; i = i + 10001 {
 		stringValue = strconv.FormatUint(i, 10)
 		value, _ = strconv.Atoi(stringValue)
 
@@ -150,5 +150,31 @@ func Test2Byte(t *testing.T) {
 				t.Errorf("Bytes2Byte() value = %v, want %v, i %v", value3, 0, i)
 			}
 		}
+	}
+}
+
+func TestBytes2Uint16(t *testing.T) {
+
+	tests := []struct {
+		input   []byte
+		want    uint16
+		wantErr bool
+	}{
+		{[]byte("255"), 255, false},
+		{[]byte("25"), 25, false},
+		{[]byte("0"), 0, false},
+		{[]byte("16000"), 16000, false},
+	}
+	for _, tt := range tests {
+		t.Run(string(tt.input), func(t *testing.T) {
+			got, err := Bytes2Uint16(tt.input)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Bytes2Uint16() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Bytes2Uint16() got = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

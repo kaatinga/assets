@@ -36,24 +36,22 @@ func TestGenPassword(t *testing.T) {
 }
 
 func TestStBool(t *testing.T) {
-	type args struct {
-		inputString string
-	}
+
 	tests := []struct {
 		name string
-		args args
+		inputString string
 		want bool
 	}{
-		{"true 1", args{"on"}, true},
-		{"true 2", args{"true"}, true},
-		{"false 1", args{""}, false},
-		{"false 2", args{"да!"}, false},
+		{"true 1", "on", true},
+		{"true 2", "true", true},
+		{"false 1", "", false},
+		{"false 2", "да!", false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := StBool(tt.args.inputString); got != tt.want {
+			if got := StBool(tt.inputString); got != tt.want {
 				t.Errorf("StBool() = %v, want %v", got, tt.want)
 			}
 		})
@@ -61,25 +59,23 @@ func TestStBool(t *testing.T) {
 }
 
 func TestStUint64(t *testing.T) {
-	type args struct {
-		inputString string
-	}
+
 	tests := []struct {
 		name       string
-		args       args
+		inputString string
 		wantOutput uint64
 		wantOk     bool
 	}{
-		{"correct string 1", args{"99999"}, 99999, true},
-		{"correct string 2", args{"65535"}, 65535, true},
-		{"correct string 3", args{"9"}, 9, true},
-		{"negative string", args{"-9"}, 0, false},
+		{"correct string 1", "99999", 99999, true},
+		{"correct string 2", "65535", 65535, true},
+		{"correct string 3", "9", 9, true},
+		{"negative string", "-9", 0, false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotOutput, gotOk := StUint64(tt.args.inputString)
+			gotOutput, gotOk := StUint64(tt.inputString)
 			if gotOutput != tt.wantOutput {
 				t.Errorf("StUint64() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}
@@ -91,26 +87,24 @@ func TestStUint64(t *testing.T) {
 }
 
 func TestStByte(t *testing.T) {
-	type args struct {
-		inputString string
-	}
+
 	tests := []struct {
 		name  string
-		args  args
+		inputString string
 		want  byte
 		want1 bool
 	}{
-		{"incorrect string", args{"9999"}, 0, false},
-		{"correct string 1", args{"9"}, 9, true},
-		{"correct string 2", args{"255"}, 255, true},
-		{"zero", args{"0"}, 0, true},
-		{"negative string", args{"-9"}, 0, false},
+		{"incorrect string", "9999", 0, false},
+		{"correct string 1", "9", 9, true},
+		{"correct string 2", "255", 255, true},
+		{"zero", "0", 0, true},
+		{"negative string", "-9", 0, false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := StByte(tt.args.inputString)
+			got, got1 := StByte(tt.inputString)
 			if got != tt.want {
 				t.Errorf("StByte() got = %v, want %v", got, tt.want)
 			}
@@ -122,25 +116,23 @@ func TestStByte(t *testing.T) {
 }
 
 func TestStUint16(t *testing.T) {
-	type args struct {
-		inputString string
-	}
+
 	tests := []struct {
 		name  string
-		args  args
+		inputString string
 		want  uint16
 		want1 bool
 	}{
-		{"incorrect string", args{"99999"}, 0, false},
-		{"correct string 1", args{"65535"}, 65535, true},
-		{"correct string 2", args{"9"}, 9, true},
-		{"negative string", args{"-9"}, 0, false},
+		{"incorrect string", "99999", 0, false},
+		{"correct string 1", "65535", 65535, true},
+		{"correct string 2", "9", 9, true},
+		{"negative string", "-9", 0, false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := StUint16(tt.args.inputString)
+			got, got1 := StUint16(tt.inputString)
 			if got != tt.want {
 				t.Errorf("StUint16() got = %v, want %v", got, tt.want)
 			}
@@ -152,21 +144,19 @@ func TestStUint16(t *testing.T) {
 }
 
 func TestSafeQM(t *testing.T) {
-	type args struct {
-		str string
-	}
+
 	tests := []struct {
 		name          string
-		args          args
+		str string
 		wantNewString string
 	}{
-		{`correct string`, args{`ООО "Ромашка"`}, `ООО \"Ромашка\"`},
+		{`correct string`, `ООО "Ромашка"`, `ООО \"Ромашка\"`},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotNewString := SafeQM(tt.args.str); gotNewString != tt.wantNewString {
+			if gotNewString := SafeQM(tt.str); gotNewString != tt.wantNewString {
 				t.Errorf("SafeQM() = %v, want %v", gotNewString, tt.wantNewString)
 			}
 		})
@@ -174,21 +164,19 @@ func TestSafeQM(t *testing.T) {
 }
 
 func TestRemoveSafeQM(t *testing.T) {
-	type args struct {
-		str string
-	}
+
 	tests := []struct {
 		name          string
-		args          args
+		str string
 		wantNewString string
 	}{
-		{`correct string`, args{`ООО \"Ромашка\"`}, `ООО "Ромашка"`},
+		{`correct string`, `ООО \"Ромашка\"`, `ООО "Ромашка"`},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotNewString := RemoveSafeQM(tt.args.str); gotNewString != tt.wantNewString {
+			if gotNewString := RemoveSafeQM(tt.str); gotNewString != tt.wantNewString {
 				t.Errorf("RemoveSafeQM() = %v, want %v", gotNewString, tt.wantNewString)
 			}
 		})
@@ -196,26 +184,24 @@ func TestRemoveSafeQM(t *testing.T) {
 }
 
 func TestCheckRussianCompanyName(t *testing.T) {
-	type args struct {
-		company string
-	}
+
 	tests := []struct {
 		name   string
-		args   args
+		company string
 		wantOk bool
 	}{
-		{`string1`, args{"ООО «аб_в»"}, false},
-		{`string+digits`, args{"ООО «1а2б_3в»"}, false},
-		{`string2`, args{"ООО «Про&+ба»"}, true},
-		{`string+digits2`, args{"ООО «а-б1-в»"}, true},
-		{`string3`, args{"ООО \"а&бв\""}, true},
-		{`english string`, args{"ООО «Company»"}, false},
+		{`string1`, "ООО «аб_в»", false},
+		{`string+digits`, "ООО «1а2б_3в»", false},
+		{`string2`, "ООО «Про&+ба»", true},
+		{`string+digits2`, "ООО «а-б1-в»", true},
+		{`string3`, "ООО \"а&бв\"", true},
+		{`english string`, "ООО «Company»", false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotOk := CheckRussianCompanyName(tt.args.company); gotOk != tt.wantOk {
+			if gotOk := CheckRussianCompanyName(tt.company); gotOk != tt.wantOk {
 				t.Errorf("CheckCompanyName() = %v, want %v", gotOk, tt.wantOk)
 			}
 		})

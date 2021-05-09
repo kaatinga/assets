@@ -5,15 +5,13 @@ const (
 	UnicodeMaskUint32 uint32 = 0xf
 	UnicodeMaskUint16 uint16 = 0xf
 
-	ByteLengthMask    int    = 0x03
+	ByteLengthMask int = 0b11
 
-	U
+	Uint16LengthMask int = 0b101
 
-	Uint32LengthMask1 int    = 0b111  // checks the number > 7
-	Uint32LengthMask2 int    = 0b1010 // checks the number == 8, 10
-	Uint32LengthMask3 int    = 0b1001 // checks the number == 9
-
-
+	Uint32LengthMask1 int = 0b111  // checks the number > 7
+	Uint32LengthMask2 int = 0b1010 // checks the number == 8, 10
+	Uint32LengthMask3 int = 0b1001 // checks the number == 9
 )
 
 // String2Uint32 checks and converts input string to uint32 type.
@@ -84,10 +82,11 @@ func Bytes2Uint32(input []byte) (uint32, error) {
 	return uint32(output), nil
 }
 
-// Bytes2Uint16 checks and converts input string as []byte to uint16 type.
-func Bytes2Uint16(input []byte) (uint16, error) {
+// String2Uint16 checks and converts input string to uint16 type.
+func String2Uint16(input string) (uint16, error) {
 
-	if len(input)&^Uint32LengthMask1 != 0 {
+	if !(len(input)&^Uint16LengthMask == 0 ||
+		len(input)&^ByteLengthMask == 0) {
 		return 0, ErrNotUint16
 	}
 
@@ -101,7 +100,39 @@ func Bytes2Uint16(input []byte) (uint16, error) {
 
 		output = (output << 3) + (output << 1) + uint32(input[i])&UnicodeMaskUint32
 
-		if output&^0xffffffff != 0 {
+		if output&^0xffff != 0 {
+			return 0, ErrNumberExceedMaxUint16Value
+		}
+
+		i++
+
+		if i == len(input) {
+			break
+		}
+	}
+
+	return uint16(output), nil
+}
+
+// Bytes2Uint16 checks and converts input string as []byte to uint16 type.
+func Bytes2Uint16(input []byte) (uint16, error) {
+
+	if !(len(input)&^Uint16LengthMask == 0 ||
+		len(input)&^ByteLengthMask == 0) {
+		return 0, ErrNotUint16
+	}
+
+	var i int
+	var output uint32
+	for {
+
+		if input[i] < 0x30 || input[i] > 0x39 {
+			return 0, ErrNotUint16
+		}
+
+		output = (output << 3) + (output << 1) + uint32(input[i])&UnicodeMaskUint32
+
+		if output&^0xffff != 0 {
 			return 0, ErrNumberExceedMaxUint16Value
 		}
 

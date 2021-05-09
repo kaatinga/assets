@@ -74,6 +74,16 @@ func BenchmarkString2Uint32(b *testing.B) {
 }
 
 // nolint
+func BenchmarkString2Uint16(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		String2Uint16("0")
+		String2Uint16("255")
+		String2Uint16("25549672951")
+	}
+}
+
+// nolint
 func BenchmarkStrvconv_Atoi(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {

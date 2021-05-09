@@ -23,21 +23,6 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-// StByte checks and converts input string to byte type
-func StByte(inputString string) (byte, bool) {
-	var (
-		tmpUint64 uint64 // a temporary int value
-		ok        bool
-	)
-
-	tmpUint64, ok = StUint64(inputString)
-	if ok && tmpUint64 <= maxUint8 {
-		return byte(tmpUint64), true
-	}
-
-	return 0, false
-}
-
 // StUint16 checks and converts input string to uint16 type
 func StUint16(inputString string) (uint16, bool) {
 	var (
@@ -48,21 +33,6 @@ func StUint16(inputString string) (uint16, bool) {
 	tmpUint64, ok = StUint64(inputString)
 	if ok && tmpUint64 <= maxUint16 {
 		return uint16(tmpUint64), true
-	}
-
-	return 0, false
-}
-
-// StUint32 checks and converts input string to uint16 type
-func StUint32(inputString string) (uint32, bool) {
-	var (
-		tmpUint64 uint64 // a temporary int value
-		ok        bool
-	)
-
-	tmpUint64, ok = StUint64(inputString)
-	if ok && tmpUint64 <= maxUint32 {
-		return uint32(tmpUint64), true
 	}
 
 	return 0, false

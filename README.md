@@ -10,6 +10,7 @@ The package contain several useful functions intended for conversion between str
 []byte and different integer types.
 
 ## String2Uint32(), Bytes2Uint32(), String2Byte(), etc
+
 The functions are faster alternative to strconv.Atoi().
 
 ```
@@ -21,4 +22,16 @@ BenchmarkString2Uint32-8   	92657037	        11.07 ns/op	       0 B/op	       0 
 BenchmarkStrvconv_Atoi
 BenchmarkStrvconv_Atoi-8   	51235477	        22.03 ns/op	       0 B/op	       0 allocs/op
 PASS
+```
+
+## Uint162String, Byte2String, etc
+
+The functions are faster alternative to strconv.Itoa().
+
+```
+cpu: AMD Ryzen 5 3400G with Radeon Vega Graphics    
+BenchmarkUint162String
+BenchmarkUint162String-8   	68361266	        17.65 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStrvconvItoa
+BenchmarkStrvconvItoa-8    	30279402	        39.60 ns/op	       5 B/op	       1 allocs/op
 ```

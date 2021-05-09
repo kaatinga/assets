@@ -3,8 +3,8 @@ package assets
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"math/rand"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -160,7 +160,7 @@ func SaveFile(data interface{}, path string) (err error) {
 		return err
 	}
 
-	err = ioutil.WriteFile(path, dataToWrite, 0660)
+	err = os.WriteFile(path, dataToWrite, 0660)
 	if err != nil {
 		return err
 	}

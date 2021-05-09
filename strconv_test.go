@@ -167,6 +167,8 @@ func TestBytes2Uint16(t *testing.T) {
 		{[]byte("66535"), 0, true},
 		{[]byte("160000"), 0, true},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(string(tt.input), func(t *testing.T) {
 			got, err := Bytes2Uint16(tt.input)

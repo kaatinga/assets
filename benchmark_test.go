@@ -35,23 +35,23 @@ import (
 //	}
 //}
 
-//func BenchmarkUint162String(b *testing.B) {
-//	b.ReportAllocs()
-//	for i := 0; i < b.N; i++ {
-//		Uint162String(19999)
-//		Uint162String(0)
-//		Uint162String(55)
-//	}
-//}
-//
-//func BenchmarkStrvconvItoa(b *testing.B) {
-//	b.ReportAllocs()
-//	for i := 0; i < b.N; i++ {
-//		strconv.Itoa(19999)
-//		strconv.Itoa(0)
-//		strconv.Itoa(55)
-//	}
-//}
+func BenchmarkUint162String(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		Uint162String(19999)
+		Uint162String(0)
+		Uint162String(55)
+	}
+}
+
+func BenchmarkStrvconvItoa(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		strconv.Itoa(19999)
+		strconv.Itoa(0)
+		strconv.Itoa(55)
+	}
+}
 
 // nolint
 func BenchmarkString2Byte(b *testing.B) {

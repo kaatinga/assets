@@ -11,9 +11,11 @@ func (err IntError) Error() string {
 // errorDescriptions contains descriptions for the IntError errors.
 var errorDescriptions = []string{
 	0: "the input string is not an uint32 number",
-	1: "the input string is a number, but the value exceeds the maximum value",
-	2: "the input string is not an uint8 number",
-	3: "the input string is a number, but the value exceeds the maximum value",
+	1: "the input string is a number, but the value exceeds the maximum uint32 value",
+	2: "the input string is not an uint16 number",
+	3: "the input string is a number, but the value exceeds the maximum uint16 value",
+	4: "the input string is not an uint8 number",
+	5: "the input string is a number, but the value exceeds the maximum byte value",
 }
 
 const (

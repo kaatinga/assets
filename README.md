@@ -11,7 +11,7 @@ The package contain several useful functions intended for conversion between str
 
 ## String2Uint32(), Bytes2Uint32(), String2Byte(), etc
 
-The functions are faster alternative to strconv.Atoi().
+The functions are faster alternative to `strconv.Atoi()`.
 
 ```
 cpu: Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz
@@ -26,7 +26,7 @@ PASS
 
 ## Uint162String, Byte2String, etc
 
-The functions are faster alternative to strconv.Itoa().
+The functions are faster alternative to `strconv.Itoa()`.
 
 ```
 cpu: AMD Ryzen 5 3400G with Radeon Vega Graphics    

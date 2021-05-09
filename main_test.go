@@ -20,6 +20,8 @@ func TestGenPassword(t *testing.T) {
 		{"6", args{6}, 6, false},
 		{"16", args{16}, 16, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotStr, err := GenPassword(tt.args.length)
@@ -49,6 +51,8 @@ func TestStBool(t *testing.T) {
 		{"false 1", args{""}, false},
 		{"false 2", args{"да!"}, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := StBool(tt.args.inputString); got != tt.want {
@@ -73,6 +77,8 @@ func TestStUint64(t *testing.T) {
 		{"correct string 3", args{"9"}, 9, true},
 		{"negative string", args{"-9"}, 0, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotOutput, gotOk := StUint64(tt.args.inputString)
@@ -102,6 +108,8 @@ func TestStByte(t *testing.T) {
 		{"zero", args{"0"}, 0, true},
 		{"negative string", args{"-9"}, 0, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, got1 := StByte(tt.args.inputString)
@@ -130,6 +138,8 @@ func TestStUint16(t *testing.T) {
 		{"correct string 2", args{"9"}, 9, true},
 		{"negative string", args{"-9"}, 0, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, got1 := StUint16(tt.args.inputString)
@@ -154,6 +164,8 @@ func TestSafeQM(t *testing.T) {
 	}{
 		{`correct string`, args{`ООО "Ромашка"`}, `ООО \"Ромашка\"`},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotNewString := SafeQM(tt.args.str); gotNewString != tt.wantNewString {
@@ -174,6 +186,8 @@ func TestRemoveSafeQM(t *testing.T) {
 	}{
 		{`correct string`, args{`ООО \"Ромашка\"`}, `ООО "Ромашка"`},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotNewString := RemoveSafeQM(tt.args.str); gotNewString != tt.wantNewString {
@@ -199,6 +213,8 @@ func TestCheckRussianCompanyName(t *testing.T) {
 		{`string3`, args{"ООО \"а&бв\""}, true},
 		{`english string`, args{"ООО «Company»"}, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotOk := CheckRussianCompanyName(tt.args.company); gotOk != tt.wantOk {
@@ -220,6 +236,8 @@ func Test_removeCharacters(t *testing.T) {
 	}{
 		{`string1`, args{"ООО «аб_в»", "&\"+-_»«"}, "ООО абв"},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := RemoveCharacters(tt.args.input, tt.args.characters); got != tt.want {
@@ -243,6 +261,8 @@ func TestSetUint16(t *testing.T) {
 		{`correct`, args{&testUint16, "16"}, true},
 		{`incorrect`, args{&testUint16, "-16"}, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := SetUint16(tt.args.inputUint16, tt.args.inputString); got != tt.want {
@@ -264,6 +284,8 @@ func TestHTTPString(t *testing.T) {
 		{`correct`, args{` "abc" `}, String{"&#34;abc&#34;", true}},
 		{`incorrect`, args{""}, String{"", false}},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotOutput := HTTPString(tt.args.input); !reflect.DeepEqual(gotOutput, tt.wantOutput) {
@@ -287,6 +309,8 @@ func TestString_SetStringByPointer(t *testing.T) {
 	}{
 		{`correct`, &correctString, args{&tempString}, true},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.input.SetStringByPointer(tt.args.output); got != tt.want {
@@ -311,6 +335,8 @@ func TestMultipleEqual(t *testing.T) {
 		{`true and false`, args{[]bool{true, true, true, false}}, false, false},
 		{`too short`, args{[]bool{true}}, false, true},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
@@ -339,6 +365,8 @@ func TestCompareTwoStrings(t *testing.T) {
 		{`true`, args{"a", "a"}, true},
 		{`false`, args{"a", "b"}, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := CompareTwoStrings(tt.args.string1, tt.args.string2); got != tt.want {
@@ -363,6 +391,8 @@ func TestCheckUint16(t *testing.T) {
 		{`true 2`, args{"65535"}, Uint16{65535, true}},
 		{`false 2`, args{"65536"}, Uint16{0, false}},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotOutput := CheckUint16(tt.args.inputString); !reflect.DeepEqual(gotOutput, tt.wantOutput) {
@@ -388,6 +418,8 @@ func TestStUint32(t *testing.T) {
 		{"negative string", args{"-9"}, 0, false},
 		{"zero", args{"0"}, 0, true},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, got1 := StUint32(tt.args.inputString)
@@ -414,6 +446,8 @@ func TestCheckName(t *testing.T) {
 		{"english", args{"Nerusskoe слово"}, false},
 		{"123", args{"123"}, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := CheckName(tt.args.name); got != tt.want {
@@ -440,6 +474,8 @@ func TestSuperBytesToUint32(t *testing.T) {
 		{"incorrect string 4294967296", []byte("4294967296"), 0, false},
 		{"incorrect string -1", []byte("-1"), 0, false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotOutput, err := SuperBytesToUint32(tt.args)
@@ -469,6 +505,8 @@ func Test_getRandomByte(t *testing.T) {
 		{"ok8", 1},
 		{"ok9", 0},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := GetRandomByte(tt.max)
@@ -493,6 +531,8 @@ func TestDays(t *testing.T) {
 		{"ok1", goodTime1, 31},
 		{"ok2", goodTime2, 29},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Days(tt.month); got != tt.want {
@@ -513,6 +553,8 @@ func TestIsEmailValid(t *testing.T) {
 		{"!ok1", "test", false},
 		{"!ok2", "123@1???--23", false},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := IsEmailValid(tt.email); got != tt.want {
@@ -538,6 +580,8 @@ func TestUint162String(t *testing.T) {
 		{"10000", 10000},
 		{"9999", 9999},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.result, func(t *testing.T) {
 			got := Uint162String(tt.num)
@@ -564,6 +608,8 @@ func TestByte2String(t *testing.T) {
 		{"10", 10},
 		{"1", 1},
 	}
+
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.result, func(t *testing.T) {
 			if got := Byte2String(tt.num); !reflect.DeepEqual(got, tt.result) {

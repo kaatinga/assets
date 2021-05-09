@@ -30,22 +30,23 @@ func Test2Uint32(t *testing.T) {
 
 	var err error
 
+	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var gotOutput uint32
 			gotOutput, err = String2Uint32(tt.input)
-			if err != tt.wantErrUint32 {
+			if err != tt.wantErrUint32 { //nolint:errorlint
 				t.Errorf("String2Uint32() error = %v, want %v", err, tt.wantErrUint32)
 			}
-			if gotOutput != tt.wantOutput {
+			if gotOutput != tt.wantOutput { //nolint:errorlint
 				t.Errorf("String2Uint32() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}
 
 			gotOutput, err = Bytes2Uint32([]byte(tt.input))
-			if err != tt.wantErrUint32 {
+			if err != tt.wantErrUint32 { //nolint:errorlint
 				t.Errorf("Bytes2Uint32() error = %v, want %v", err, tt.wantErrUint32)
 			}
-			if gotOutput != tt.wantOutput {
+			if gotOutput != tt.wantOutput { //nolint:errorlint
 				t.Errorf("Bytes2Uint32() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}
 		})

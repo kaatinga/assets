@@ -53,6 +53,7 @@ import (
 //	}
 //}
 
+// nolint
 func BenchmarkString2Byte(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
@@ -62,6 +63,7 @@ func BenchmarkString2Byte(b *testing.B) {
 	}
 }
 
+// nolint
 func BenchmarkString2Uint32(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
@@ -71,6 +73,7 @@ func BenchmarkString2Uint32(b *testing.B) {
 	}
 }
 
+// nolint
 func BenchmarkStrvconv_Atoi(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {

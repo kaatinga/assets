@@ -171,7 +171,7 @@ func RemoveSafeQM(str string) string {
 }
 
 // CheckRussianCompanyName check if an only allowed set of symbols is in the company name
-func CheckRussianCompanyName(company string) (ok bool) {
+func CheckRussianCompanyName(company string) bool {
 
 	// Russian company can have digits and russian symbols, as well as some symbols below
 	var symbolRange = []*unicode.RangeTable{
@@ -218,11 +218,8 @@ func RemoveCharacters(input, characters string) string {
 
 // HTTPString removes all leading and trailing white space and replace quotation marks with &#34;
 func HTTPString(input string) (output String) {
-	switch input {
-	case "":
-	default:
-		output.Ok = true
-		output.Parameter = strings.Replace(strings.TrimSpace(input), "\"", "&#34;", -1)
+	if len(input) != 0 {
+		return String{strings.Replace(strings.TrimSpace(input), "\"", "&#34;", -1), true}
 	}
 	return
 }

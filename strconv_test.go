@@ -164,6 +164,8 @@ func TestBytes2Uint16(t *testing.T) {
 		{[]byte("25"), 25, false},
 		{[]byte("0"), 0, false},
 		{[]byte("16000"), 16000, false},
+		{[]byte("66535"), 0, true},
+		{[]byte("160000"), 0, true},
 	}
 	for _, tt := range tests {
 		t.Run(string(tt.input), func(t *testing.T) {
@@ -174,6 +176,10 @@ func TestBytes2Uint16(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Errorf("Bytes2Uint16() got = %v, want %v", got, tt.want)
+			}
+
+			if err != nil {
+				t.Log(err)
 			}
 		})
 	}

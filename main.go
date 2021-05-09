@@ -113,7 +113,6 @@ func (input *String) SetStringByPointer(output *string) bool {
 
 // StBool converts input string to bool type
 func StBool(inputString string) bool {
-
 	return inputString == "true" || inputString == "on"
 }
 
@@ -141,7 +140,7 @@ func GenPassword(length byte) (string, error) {
 	return builder.String(), nil
 }
 
-// a random number generator that returns a byte
+// GetRandomByte generates a random byte number.
 func GetRandomByte(max byte) byte {
 
 	switch max {
@@ -152,32 +151,23 @@ func GetRandomByte(max byte) byte {
 	}
 }
 
-// SaveFile saves a file
-func SaveFile(data interface{}, path string) (err error) {
-	var dataToWrite []byte // the variable to store serialized JSON data
-	dataToWrite, err = json.Marshal(data)
+// SaveFile saves a file.
+func SaveFile(data interface{}, path string) error {
+	dataToWrite, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
-
-	err = os.WriteFile(path, dataToWrite, 0660)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return os.WriteFile(path, dataToWrite, 0660)
 }
 
 // SafeQM escapes quotation marks adding '\' before them
-func SafeQM(str string) (newString string) {
-	newString = strings.Replace(str, `"`, `\"`, -1)
-	return
+func SafeQM(str string) string {
+	return strings.Replace(str, `"`, `\"`, -1)
 }
 
 // RemoveSafeQM removes symbols '\' before quotation marks
-func RemoveSafeQM(str string) (newString string) {
-	newString = strings.Replace(str, `\"`, `"`, -1)
-	return
+func RemoveSafeQM(str string) string {
+	return strings.Replace(str, `\"`, `"`, -1)
 }
 
 // CheckRussianCompanyName check if an only allowed set of symbols is in the company name

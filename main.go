@@ -295,17 +295,7 @@ func Uint162Bytes(num uint16) []byte {
 
 // Uint162String converts an uint16 number to string.
 func Uint162String(num uint16) string {
-
-	convertedNumber, i := getSliceUint16(num)
-
-	for {
-		convertedNumber[i] = byte(num%10) + 0x30
-		num = num / 10
-		if i == 0 {
-			return string(convertedNumber)
-		}
-		i--
-	}
+	return string(Uint162Bytes(num))
 }
 
 func getSliceUint16(num uint16) ([]byte, int) {
@@ -349,11 +339,10 @@ func getSliceUint16(num uint16) ([]byte, int) {
 
 // Byte2Bytes converts a byte number to []byte.
 func Byte2Bytes(num byte) []byte {
-
 	convertedNumber, i := getSliceByte(num)
 
 	for {
-		convertedNumber[i] = num%10 + 0x30
+		convertedNumber[i] = num%10 | 0x30
 		num = num / 10
 		if i == 0 {
 			return convertedNumber
@@ -364,17 +353,7 @@ func Byte2Bytes(num byte) []byte {
 
 // Byte2String converts a byte number to string.
 func Byte2String(num byte) string {
-
-	convertedNumber, i := getSliceByte(num)
-
-	for {
-		convertedNumber[i] = num%10 + 0x30
-		num = num / 10
-		if i == 0 {
-			return string(convertedNumber)
-		}
-		i--
-	}
+	return string(Byte2Bytes(num))
 }
 
 const (

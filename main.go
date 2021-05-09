@@ -23,7 +23,7 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-// StByte checks and converts input string to Byte type
+// StByte checks and converts input string to byte type
 func StByte(inputString string) (byte, bool) {
 	var (
 		tmpUint64 uint64 // a temporary int value
@@ -151,7 +151,7 @@ func GetRandomByte(max byte) byte {
 	}
 }
 
-// SaveFile saves a file.
+// SaveFile saves a file in JSON format.
 func SaveFile(data interface{}, path string) error {
 	dataToWrite, err := json.Marshal(data)
 	if err != nil {
@@ -160,12 +160,12 @@ func SaveFile(data interface{}, path string) error {
 	return os.WriteFile(path, dataToWrite, 0660)
 }
 
-// SafeQM escapes quotation marks adding '\' before them
+// SafeQM escapes quotation marks adding '\' before them.
 func SafeQM(str string) string {
 	return strings.Replace(str, `"`, `\"`, -1)
 }
 
-// RemoveSafeQM removes symbols '\' before quotation marks
+// RemoveSafeQM removes symbols '\' before quotation marks.
 func RemoveSafeQM(str string) string {
 	return strings.Replace(str, `\"`, `"`, -1)
 }
@@ -282,7 +282,7 @@ func Uint162Bytes(num uint16) []byte {
 	convertedNumber, i := getSliceUint16(num)
 
 	for {
-		convertedNumber[i] = byte(num%10) + 0x30
+		convertedNumber[i] = byte(num%10) | 0x30
 		num = num / 10
 		if i == 0 {
 			return convertedNumber

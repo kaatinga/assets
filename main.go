@@ -6,64 +6,14 @@ import (
 	"math/rand"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 	"time"
 	"unicode"
 )
 
-const (
-	maxUint8  uint64 = 255
-	maxUint16 uint64 = 65535
-	maxUint32 uint64 = 4294967295
-)
-
 func init() {
 	// in order to issue really random password
 	rand.Seed(time.Now().UnixNano())
-}
-
-// StUint16 checks and converts input string to uint16 type
-func StUint16(inputString string) (uint16, bool) {
-	var (
-		tmpUint64 uint64 // a temporary int value
-		ok        bool
-	)
-
-	tmpUint64, ok = StUint64(inputString)
-	if ok && tmpUint64 <= maxUint16 {
-		return uint16(tmpUint64), true
-	}
-
-	return 0, false
-}
-
-// StUint64 checks and converts input string to uint64 type
-func StUint64(inputString string) (output uint64, ok bool) {
-	var err error // to store error result
-
-	output, err = strconv.ParseUint(inputString, 10, 64)
-	return output, err == nil
-}
-
-// Uint16 is an extended version of uint16 type
-type Uint16 struct {
-	Parameter uint16
-	Ok        bool
-}
-
-// CheckUint16 checks and converts input string to Uint16 struct
-func CheckUint16(inputString string) (output Uint16) {
-
-	output.Parameter, output.Ok = StUint16(inputString)
-	return
-}
-
-// SetUint16 checks and sets input string to a given pointer to uint16 type.
-func SetUint16(inputUint16 *uint16, inputString string) (ok bool) {
-
-	*inputUint16, ok = StUint16(inputString)
-	return
 }
 
 // String is an extended version of string type

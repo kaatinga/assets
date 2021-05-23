@@ -207,10 +207,10 @@ func Bytes2Byte(input []byte) (byte, error) {
 }
 
 const (
-	ten         uint16 = 10
-	hundred     uint16 = 100
-	thousand    uint16 = 1000
-	tenThousand uint16 = 10000
+	uint1610    uint16 = 10
+	uint16100   uint16 = 100
+	uint161000  uint16 = 1000
+	uint1610000 uint16 = 10000
 )
 
 // Uint162Bytes converts an uint16 number to string.
@@ -234,24 +234,92 @@ func Uint162String(num uint16) string {
 }
 
 func getSliceUint16(num uint16) ([]byte, int) {
-	if num < ten {
+	if num < uint1610 {
 		return make([]byte, 1), 0
 	}
 
-	if num < hundred {
+	if num < uint16100 {
 		return make([]byte, 2), 1
 	}
 
-	if num < thousand {
+	if num < uint161000 {
 		return make([]byte, 3), 2
 	}
 
-	if num < tenThousand {
+	if num < uint1610000 {
 		return make([]byte, 4), 3
 	}
 
 	return make([]byte, 5), 4
 }
+
+//// Uint322Bytes converts an uint32 number to string.
+//func Uint322Bytes(num uint32) []byte {
+//
+//	convertedNumber, i := getSliceUint32(num)
+//
+//	for {
+//		convertedNumber[i] = byte(num%10) | 0x30
+//		num = num / 10
+//		if i == 0 {
+//			return convertedNumber
+//		}
+//		i--
+//	}
+//}
+//
+//const (
+//	uint3210         uint32 = 10
+//	uint32100        uint32 = 100
+//	uint321000       uint32 = 1000
+//	uint3210000      uint32 = 10000
+//	uint32100000     uint32 = 100000
+//	uint321000000    uint32 = 1000000
+//	uint3210000000   uint32 = 10000000
+//	uint32100000000  uint32 = 100000000
+//	uint321000000000 uint32 = 1000000000
+//)
+//
+//func getSliceUint32(num uint32) ([]byte, int) {
+//
+//	if num < uint3210 {
+//		return make([]byte, 1), 0
+//	}
+//
+//	if num < uint32100 {
+//		return make([]byte, 2), 1
+//	}
+//
+//	if num < uint321000 {
+//		return make([]byte, 3), 2
+//	}
+//
+//	if num < uint3210000 {
+//		return make([]byte, 4), 3
+//	}
+//
+//	if num < uint32100000 {
+//		return make([]byte, 5), 4
+//	}
+//
+//	if num < uint321000000 {
+//		return make([]byte, 6), 5
+//	}
+//
+//	if num < uint3210000000 {
+//		return make([]byte, 7), 6
+//	}
+//
+//	if num < uint32100000000 {
+//		return make([]byte, 8), 7
+//	}
+//
+//	if num < uint321000000000 {
+//		return make([]byte, 9), 8
+//	}
+//
+//	return make([]byte, 10), 9
+//}
 
 //func getSize(num uint16, size int) int {
 //	if size == 5 {
@@ -292,16 +360,16 @@ func Byte2String(num byte) string {
 }
 
 const (
-	byteTen     byte = 10
-	byteHundred byte = 100
+	byte10  byte = 10
+	byte100 byte = 100
 )
 
 func getSliceByte(num byte) ([]byte, int) {
-	if num < byteTen {
+	if num < byte10 {
 		return make([]byte, 1), 0
 	}
 
-	if num < byteHundred {
+	if num < byte100 {
 		return make([]byte, 2), 1
 	}
 

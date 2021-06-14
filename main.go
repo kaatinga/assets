@@ -2,7 +2,6 @@ package assets
 
 import (
 	"encoding/json"
-	"errors"
 	"math/rand"
 	"os"
 	"regexp"
@@ -146,22 +145,21 @@ func HTTPString(input string) (output String) {
 }
 
 // MultipleEqual checks all the bool parameters and returns a result
-func MultipleEqual(bools ...bool) (bool, error) {
+func MultipleEqual(booleans ...bool) (bool, error) {
 
-	if len(bools) > 255 {
-		return false, errors.New("the number of input values exceeds 255")
+	if len(booleans) > 255 {
+		return false, ErrNotMoreThan255ValuesAreSupported
 	}
 
-	var equal bool = true
-	var length = byte(len(bools))
+	var equal = true
+	var length = byte(len(booleans))
 
 	if length < 2 {
-		return false, errors.New("the number of input values is less then 2")
+		return false, ErrAtLeast2ValuesNeeded
 	}
 
-	var i byte = 1
-	for ; equal && i < length; i++ {
-		equal = bools[i] == bools[i-1]
+	for i := byte(1); equal && i < length; i++ {
+		equal = booleans[i] == booleans[i-1]
 	}
 
 	return equal, nil

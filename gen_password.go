@@ -23,7 +23,7 @@ func GenPassword(length byte) (string, error) {
 	)
 
 	for i := byte(0); i < length; i++ {
-		err = builder.WriteByte(chars[rand.Intn(charsLength)])
+		err = builder.WriteByte(chars[rand.Intn(charsLength)]) //nolint:gosec
 		if err != nil {
 			return "", err
 		}

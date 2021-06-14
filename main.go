@@ -12,7 +12,7 @@ import (
 
 func init() {
 	// in order to issue really random password
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano()) //nolint:gosec
 }
 
 // String is an extended version of string type

@@ -31,8 +31,31 @@ func (input *String) SetStringByPointer(output *string) bool {
 }
 
 // StBool converts input string to bool type
-func StBool(inputString string) bool {
-	return inputString == "true" || inputString == "on"
+var (
+	StBool = String2Bool
+
+	trueChars = []byte{
+		0: 'T',
+		1: 'R',
+		2: 'U',
+		3: 'E',
+	}
+)
+
+// String2Bool converts input string to bool type
+func String2Bool(inputString string) bool {
+
+	if len(inputString) != 4 {
+		return false
+	}
+
+	for i := range trueChars {
+		if trueChars[i] != inputString[i]&95 {
+			return false
+		}
+	}
+
+	return true
 }
 
 // GetRandomByte generates a random byte number.

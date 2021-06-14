@@ -38,21 +38,23 @@ func TestGenPassword(t *testing.T) {
 func TestStBool(t *testing.T) {
 
 	tests := []struct {
-		name        string
 		inputString string
 		want        bool
 	}{
-		{"true 1", "on", true},
-		{"true 2", "true", true},
-		{"false 1", "", false},
-		{"false 2", "да!", false},
+		{"TruE", true},
+		{"true", true},
+		{"True", true},
+		{"TRUE", true},
+		{"", false},
+		{"труе", false},
+		{"да!", false},
 	}
 
 	// nolint:scopelint
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := StBool(tt.inputString); got != tt.want {
-				t.Errorf("StBool() = %v, want %v", got, tt.want)
+		t.Run(tt.inputString, func(t *testing.T) {
+			if got := String2Bool(tt.inputString); got != tt.want {
+				t.Errorf("String2Bool() = %v, want %v", got, tt.want)
 			}
 		})
 	}

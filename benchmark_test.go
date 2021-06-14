@@ -25,15 +25,15 @@ func BenchmarkByte2Bytes(b *testing.B) {
 	}
 }
 
-func BenchmarkUint322Bytes(b *testing.B) {
-
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		Uint322Bytes(199)
-		Uint322Bytes(0)
-		Uint322Bytes(55)
-	}
-}
+//func BenchmarkUint322Bytes(b *testing.B) {
+//
+//	b.ReportAllocs()
+//	for i := 0; i < b.N; i++ {
+//		Uint322Bytes(199)
+//		Uint322Bytes(0)
+//		Uint322Bytes(55)
+//	}
+//}
 
 //func BenchmarkByte2String(b *testing.B) {
 //

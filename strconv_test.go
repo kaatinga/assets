@@ -198,58 +198,23 @@ func TestBytes2Uint16(t *testing.T) {
 	}
 }
 
-func Test_getSliceUint32(t *testing.T) {
-
-	tests := []struct {
-		name  string
-		num uint32
-		wantLength int
-		wantIndex int
-	}{
-		{ "123", 123, 3,2},
-		{ "199", 199, 3,2},
-		{ "111", 111, 3,2},
-		{ "124", 124, 3,2},
-		{ "555", 555, 3,2},
-		{ "888", 888, 3,2},
-		{ "444", 444, 3,2},
-		{ "333", 333, 3,2},
-		{ "222", 222, 3,2},
-		{ "1", 1, 1,0},
-		{ "0", 0, 1,0},
-		{ "55", 55, 2,1},
-		{ "123000", 123000, 6,5},
-		{ "223000", 223000, 6,5},
-		{ "9999999", 9999999, 7,6},
-	}
-		for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			slice, _ := getSliceUint32(tt.num)
-
-			if len(slice) != tt.wantLength {
-				t.Errorf("getSliceUint32() lenght is incorrect\nhave %v\nwant %v", len(slice), tt.wantLength)
-			}
-		})
-	}
-}
-
-func TestUint322Bytes(t *testing.T) {
-
-	tests := []struct {
-		num uint32
-		want string
-	}{
-		{123, "123"},
-		{120003, "120003"},
-		{0, "0"},
-		{999999999, "999999999"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.want, func(t *testing.T) {
-			got := Uint322Bytes(tt.num)
-			if string(got) != tt.want {
-				t.Errorf("Uint322Bytes() result incorrect\nhave %v\nwant %v", string(got), tt.want)
-			}
-		})
-	}
-}
+//func TestUint322Bytes(t *testing.T) {
+//
+//	tests := []struct {
+//		num uint32
+//		want string
+//	}{
+//		{123, "123"},
+//		{120003, "120003"},
+//		{0, "0"},
+//		{999999999, "999999999"},
+//	}
+//	for _, tt := range tests {
+//		t.Run(tt.want, func(t *testing.T) {
+//			got := Uint322Bytes(tt.num)
+//			if string(got) != tt.want {
+//				t.Errorf("Uint322Bytes() result incorrect\nhave %v\nwant %v", string(got), tt.want)
+//			}
+//		})
+//	}
+//}

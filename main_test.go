@@ -81,7 +81,7 @@ func TestString2Uint32(t *testing.T) {
 			if gotOutput != tt.wantOutput {
 				t.Errorf("StUint64() gotOutput = %v, want %v", gotOutput, tt.wantOutput)
 			}
-			if gotOk != tt.wantError {
+			if gotOk != tt.wantError { // nolint:errorlint
 				t.Errorf("StUint64() gotOk = %v, want %v", gotOk, tt.wantError)
 			}
 		})
@@ -110,7 +110,7 @@ func TestStByte(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("StByte() got = %v, want %v", got, tt.want)
 			}
-			if got1 != tt.want1 {
+			if got1 != tt.want1 { // nolint:errorlint
 				t.Errorf("StByte() got1 = %v, want %v", got1, tt.want1)
 			}
 		})
@@ -138,7 +138,7 @@ func TestStUint16(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("StUint16() got = %v, want %v", got, tt.want)
 			}
-			if got1 != tt.wantError {
+			if got1 != tt.wantError { // nolint:errorlint
 				t.Errorf("StUint16() got1 = %v, want %v", got1, tt.wantError)
 			}
 		})

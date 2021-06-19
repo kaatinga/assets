@@ -124,7 +124,7 @@ func CheckName(name string) bool {
 // RemoveCharacters removes the set of characters from the input string
 func RemoveCharacters(input, characters string) string {
 	filter := func(r rune) rune {
-		if strings.IndexRune(characters, r) < 0 {
+		if !strings.ContainsRune(characters, r) {
 			return r
 		}
 		return -1
@@ -159,11 +159,6 @@ func MultipleEqual(booleans ...bool) (bool, error) {
 	}
 
 	return equal, nil
-}
-
-// CompareTwoStrings compares two string
-func CompareTwoStrings(string1, string2 string) bool {
-	return string1 == string2
 }
 
 // Days returns number of days in a month

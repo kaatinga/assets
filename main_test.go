@@ -313,30 +313,6 @@ func TestMultipleEqual(t *testing.T) {
 	}
 }
 
-func TestCompareTwoStrings(t *testing.T) {
-	type args struct {
-		string1 string
-		string2 string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{`true`, args{"a", "a"}, true},
-		{`false`, args{"a", "b"}, false},
-	}
-
-	// nolint:scopelint
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := CompareTwoStrings(tt.args.string1, tt.args.string2); got != tt.want {
-				t.Errorf("CompareTwoStrings() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestStUint32(t *testing.T) {
 	type args struct {
 		inputString string

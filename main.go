@@ -21,7 +21,7 @@ type String struct {
 	Ok        bool
 }
 
-// SetStringByPointer checks and sets input Strings parameter to a string through a pointer
+// SetStringByPointer checks and sets input Strings parameter to a string through a pointer.
 func (input *String) SetStringByPointer(output *string) bool {
 	if (*input).Parameter != "" {
 		*output = (*input).Parameter
@@ -30,7 +30,7 @@ func (input *String) SetStringByPointer(output *string) bool {
 	return false
 }
 
-// StBool converts input string to bool type
+// StBool converts input string to bool type.
 var (
 	StBool = String2Bool
 
@@ -42,7 +42,7 @@ var (
 	}
 )
 
-// String2Bool converts input string to bool type
+// String2Bool converts input string to bool type.
 func String2Bool(inputString string) bool {
 
 	if len(inputString) != 4 {
@@ -65,7 +65,7 @@ func GetRandomByte(max byte) byte {
 	case 0:
 		return 0
 	default:
-		return byte(rand.Int31n(int32(max)))
+		return byte(rand.Int31n(int32(max))) //nolint:gosec
 	}
 }
 
@@ -88,7 +88,7 @@ func RemoveSafeQM(str string) string {
 	return strings.Replace(str, `\"`, `"`, -1)
 }
 
-// CheckRussianCompanyName check if an only allowed set of symbols is in the company name
+// CheckRussianCompanyName check if an only allowed set of symbols is in the company name.
 func CheckRussianCompanyName(company string) bool {
 
 	// Russian company can have digits and russian symbols, as well as some symbols below
@@ -108,7 +108,7 @@ func CheckRussianCompanyName(company string) bool {
 	return true
 }
 
-// CheckName check if an only allowed set of symbols is in the string
+// CheckName check if an only allowed set of symbols is in the string.
 func CheckName(name string) bool {
 	name = RemoveCharacters(name, " ") // to remove space
 
@@ -121,7 +121,7 @@ func CheckName(name string) bool {
 	return true
 }
 
-// RemoveCharacters removes the set of characters from the input string
+// RemoveCharacters removes the set of characters from the input string.
 func RemoveCharacters(input, characters string) string {
 	filter := func(r rune) rune {
 		if !strings.ContainsRune(characters, r) {
@@ -140,7 +140,7 @@ func HTTPString(input string) (output String) {
 	return
 }
 
-// MultipleEqual checks all the bool parameters and returns a result
+// MultipleEqual checks all the bool parameters and returns a result.
 func MultipleEqual(booleans ...bool) (bool, error) {
 
 	if len(booleans) > 255 {
@@ -161,14 +161,14 @@ func MultipleEqual(booleans ...bool) (bool, error) {
 	return equal, nil
 }
 
-// Days returns number of days in a month
+// Days returns number of days in a month.
 func Days(month time.Time) int {
 	month = month.AddDate(0, 1, 0)
 	timeToGetLastDay := Date(month.Year(), 0, month.Month())
 	return timeToGetLastDay.Day()
 }
 
-// Date is a shorter version of the time.Date() function
+// Date is a shorter version of the time.Date() function.
 func Date(year, day int, month time.Month) time.Time {
 	return time.Date(year, month, day, 0, 0, 0, 0, time.UTC)
 }

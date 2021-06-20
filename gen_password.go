@@ -10,7 +10,7 @@ const (
 	charsLength = len(chars)
 )
 
-// GenPassword generates a password of a set length
+// GenPassword generates a password of a set length.
 func GenPassword(length byte) (string, error) {
 
 	if length == 0 { // in case we do not want to point out the length we can set zero

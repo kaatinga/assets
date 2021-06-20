@@ -75,7 +75,7 @@ func SaveFile(data interface{}, path string) error {
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(path, dataToWrite, 0660)
+	return os.WriteFile(path, dataToWrite, 0660) // nolint:gosec
 }
 
 // SafeQM escapes quotation marks adding '\' before them.

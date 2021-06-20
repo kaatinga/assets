@@ -15,7 +15,7 @@ var errorDescriptions = []string{
 	2: "the input string is not an uint16 number",
 	3: "the input string is a number, but the value exceeds the maximum uint16 value",
 	4: "the input string is not an uint8 number",
-	5: "the input string is a number, but the value exceeds the maximum byte value",
+	5: "the input string is a number, but the value exceeds the maximum uint8 value",
 	6: "the number of input values exceeds 255",
 	7: "the number of input values is less than 2",
 }
@@ -34,6 +34,7 @@ const (
 	ErrNotByte
 	ErrNumberExceedMaxByteValue
 
+	// Bool comparsion
 	ErrNotMoreThan255ValuesAreSupported
 	ErrAtLeast2ValuesNeeded
 )

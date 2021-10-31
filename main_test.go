@@ -6,35 +6,6 @@ import (
 	"time"
 )
 
-func TestGenPassword(t *testing.T) {
-
-	tests := []struct {
-		name      string
-		length    byte
-		strLength int
-		wantErr   bool
-	}{
-		{"Zero value", 0, 7, false},
-		{"6", 6, 6, false},
-		{"16", 16, 16, false},
-	}
-
-	// nolint:scopelint
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			gotStr, err := GenPassword(tt.length)
-			ok := err != nil
-			if ok != tt.wantErr {
-				t.Errorf("GenPassword() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if len(gotStr) != tt.strLength {
-				t.Errorf("GenPassword() gotStr = %v, want %v", gotStr, tt.strLength)
-			}
-		})
-	}
-}
-
 func TestStBool(t *testing.T) {
 
 	tests := []struct {

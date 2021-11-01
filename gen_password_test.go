@@ -20,12 +20,8 @@ func TestGenPassword(t *testing.T) {
 	// nolint:scopelint
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotStr, err := GenPassword(tt.length)
-			ok := err != nil
-			if ok != tt.wantErr {
-				t.Errorf("GenPassword() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			gotStr := GenPassword(tt.length)
+			t.Log(gotStr)
 			if len(gotStr) != tt.strLength {
 				t.Errorf("GenPassword() gotStr = %v, want %v", gotStr, tt.strLength)
 			}

@@ -24,7 +24,7 @@ func GenPasswordAsBytes(length byte) []byte {
 	password := make([]byte, length)
 
 	for i := byte(0); i < length; i++ {
-		password[i] = chars[rand.Intn(charsLength)]
+		password[i] = chars[rand.Intn(charsLength)] //nolint:gosec
 	}
 
 	return password

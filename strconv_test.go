@@ -16,7 +16,8 @@ func Test2Uint32(t *testing.T) {
 	}{
 		{"correct string 42", "42", 42, nil, nil},
 		{"correct string 12", "12", 12, nil, nil},
-		//{"correct input 012", "012", 12, nil, nil},
+		{"correct string 02", "02", 2, nil, nil},
+		{"correct input 00012", "00012", 12, nil, nil},
 		{"correct input 0", "0", 0, nil, nil},
 		{"correct string 4294967295", "4294967295", 4294967295, nil, nil},
 		{"incorrect input []byte{13, 10}", string([]byte{13, 10}), 0, ErrNotUint32, ErrNotByte},
@@ -162,6 +163,7 @@ func TestBytes2Uint16(t *testing.T) {
 	}{
 		{[]byte("255"), 255, false},
 		{[]byte("25"), 25, false},
+		{[]byte("025"), 25, false},
 		{[]byte("0"), 0, false},
 		{[]byte("16000"), 16000, false},
 		{[]byte("66535"), 0, true},
@@ -189,7 +191,6 @@ func TestBytes2Uint16(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("Bytes2Uint16() got = %v, want %v", got, tt.want)
 			}
-
 
 			if err != nil {
 				t.Log(err)

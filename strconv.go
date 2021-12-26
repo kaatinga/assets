@@ -146,7 +146,7 @@ func Bytes2Uint16(input []byte) (uint16, error) {
 	return uint16(output), nil
 }
 
-// String2Byte checks and converts input string to uint32 type.
+// String2Byte checks and converts input string to byte type.
 func String2Byte(input string) (byte, error) {
 
 	if len(input)&^ByteLengthMask != 0 || len(input) == 0 {
@@ -176,7 +176,7 @@ func String2Byte(input string) (byte, error) {
 	return byte(output), nil
 }
 
-// Bytes2Byte checks and converts input string as []byte to uint32 type.
+// Bytes2Byte checks and converts input string as []byte to byte type.
 func Bytes2Byte(input []byte) (byte, error) {
 
 	if len(input)&^ByteLengthMask != 0 || len(input) == 0 {

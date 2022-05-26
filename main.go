@@ -32,8 +32,6 @@ func (input *String) SetStringByPointer(output *string) bool {
 
 // StBool converts input string to bool type.
 var (
-	StBool = String2Bool
-
 	trueChars = []byte{
 		0: 'T',
 		1: 'R',

@@ -26,7 +26,7 @@ const (
 	ErrNotUint32 IntError = iota
 	ErrNumberExceedMaxUint32Value
 
-	// Uint16 conversion errors
+	// GetUint16 conversion errors
 	ErrNotUint16
 	ErrNumberExceedMaxUint16Value
 

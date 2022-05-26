@@ -1,8 +1,6 @@
 package assets
 
-import (
-	"testing"
-)
+import "testing"
 
 func BenchmarkGenPassword(b *testing.B) {
 	b.ReportAllocs()

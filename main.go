@@ -95,7 +95,7 @@ func CheckRussianCompanyName(company string) bool {
 		unicode.Digit,
 	}
 
-	company = RemoveCharacters(company, "& \"+-»«") // to remove a set of allowed symbols
+	company = RemoveCharacters(company, "& \"+-»«№") // to remove a set of allowed symbols
 
 	for _, value := range company {
 		if !unicode.IsOneOf(symbolRange, value) {

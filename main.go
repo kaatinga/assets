@@ -7,7 +7,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	"unicode"
 )
 
 func init() {
@@ -86,50 +85,6 @@ func RemoveSafeQM(str string) string {
 	return strings.Replace(str, `\"`, `"`, -1)
 }
 
-// CheckRussianCompanyName check if an only allowed set of symbols is in the company name.
-func CheckRussianCompanyName(company string) bool {
-
-	// Russian company can have digits and russian symbols, as well as some symbols below
-	var symbolRange = []*unicode.RangeTable{
-		unicode.Cyrillic,
-		unicode.Digit,
-	}
-
-	company = RemoveCharacters(company, "& \"+-»«№") // to remove a set of allowed symbols
-
-	for _, value := range company {
-		if !unicode.IsOneOf(symbolRange, value) {
-			return false
-		}
-	}
-
-	return true
-}
-
-// CheckName check if an only allowed set of symbols is in the string.
-func CheckName(name string) bool {
-	name = RemoveCharacters(name, " ") // to remove space
-
-	for _, value := range name {
-		if !unicode.In(value, unicode.Cyrillic) {
-			return false
-		}
-	}
-
-	return true
-}
-
-// RemoveCharacters removes the set of characters from the input string.
-func RemoveCharacters(input, characters string) string {
-	filter := func(r rune) rune {
-		if !strings.ContainsRune(characters, r) {
-			return r
-		}
-		return -1
-	}
-	return strings.Map(filter, input)
-}
-
 // HTTPString removes all leading and trailing white space and replace quotation marks with &#34;
 func HTTPString(input string) (output String) {
 	if len(input) != 0 {
@@ -140,7 +95,6 @@ func HTTPString(input string) (output String) {
 
 // MultipleEqual checks all the bool parameters and returns a result.
 func MultipleEqual(booleans ...bool) (bool, error) {
-
 	if len(booleans) > 255 {
 		return false, ErrNotMoreThan255ValuesAreSupported
 	}

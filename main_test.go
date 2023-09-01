@@ -72,7 +72,6 @@ func TestRemoveSafeQM(t *testing.T) {
 }
 
 func TestCheckRussianCompanyName(t *testing.T) {
-
 	tests := []struct {
 		name    string
 		company string
@@ -84,6 +83,7 @@ func TestCheckRussianCompanyName(t *testing.T) {
 		{`string+digits2`, "ООО «а-б1-в»", true},
 		{`string3`, "ООО \"а&бв\"", true},
 		{`english string`, "ООО «Company»", false},
+		{`english string`, "ООО «Ромашка №1»", true},
 	}
 
 	// nolint:scopelint

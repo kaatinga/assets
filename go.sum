@@ -1,6 +1,2 @@
-github.com/kaatinga/const-errs v1.0.0 h1:SLGCWZcfqXeRowK75riH1uhUEmyxelZ9ZGaxK33Pa3M=
-github.com/kaatinga/const-errs v1.0.0/go.mod h1:v4aBzObpEAb/ha35dIgohIFD8KCRHmPt76v8xu2v2zs=
-github.com/kaatinga/murka v1.3.0 h1:RtJaNL+9/KVhJ+4LMeQT9bx+n4IllUPSUEcNsbqRUGE=
-github.com/kaatinga/murka v1.3.0/go.mod h1:p1NvnA3+KYExFTteyeB5bM37+Mnz5FkVp3/g1DpGIJE=
 github.com/kaatinga/strconv v1.2.1 h1:4VmQLr+5EIPbbg2aEAFLIJQYwTeuRmWIuhk0+PRjqRI=
 github.com/kaatinga/strconv v1.2.1/go.mod h1:nGWHYzNneTBWTikd/bLFushHG7wF3C9Q0yYmDtII4fQ=

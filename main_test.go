@@ -71,54 +71,6 @@ func TestRemoveSafeQM(t *testing.T) {
 	}
 }
 
-func TestCheckRussianCompanyName(t *testing.T) {
-	tests := []struct {
-		name    string
-		company string
-		wantOk  bool
-	}{
-		{`string1`, "ООО «аб_в»", false},
-		{`string+digits`, "ООО «1а2б_3в»", false},
-		{`string2`, "ООО «Про&+ба»", true},
-		{`string+digits2`, "ООО «а-б1-в»", true},
-		{`string3`, "ООО \"а&бв\"", true},
-		{`english string`, "ООО «Company»", false},
-		{`english string`, "ООО «Ромашка №1»", true},
-	}
-
-	// nolint:scopelint
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if gotOk := CheckRussianCompanyName(tt.company); gotOk != tt.wantOk {
-				t.Errorf("CheckCompanyName() = %v, want %v", gotOk, tt.wantOk)
-			}
-		})
-	}
-}
-
-func Test_removeCharacters(t *testing.T) {
-	type args struct {
-		input      string
-		characters string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{`string1`, args{"ООО «аб_в»", "&\"+-_»«"}, "ООО абв"},
-	}
-
-	// nolint:scopelint
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := RemoveCharacters(tt.args.input, tt.args.characters); got != tt.want {
-				t.Errorf("removeCharacters() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestHTTPString(t *testing.T) {
 	type args struct {
 		input string
@@ -194,30 +146,6 @@ func TestMultipleEqual(t *testing.T) {
 
 			if got != tt.want {
 				t.Errorf("MultipleEqual() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestCheckName(t *testing.T) {
-	type args struct {
-		name string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{"ok", args{"Русское слово"}, true},
-		{"english", args{"Nerusskoe слово"}, false},
-		{"123", args{"123"}, false},
-	}
-
-	// nolint:scopelint
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := CheckName(tt.args.name); got != tt.want {
-				t.Errorf("CheckName() = %v, want %v", got, tt.want)
 			}
 		})
 	}

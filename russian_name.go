@@ -5,7 +5,7 @@ import (
 	"unicode"
 )
 
-const allowedCharactersRussianCompanyName = "& \"+-»«№"
+const allowedCharactersRussianCompanyName = `&"+-»«.№`
 
 var symbolRange = []*unicode.RangeTable{
 	unicode.Cyrillic,

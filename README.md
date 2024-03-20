@@ -6,4 +6,4 @@
 
 # The assets package
 
-The package contain several useful functions.
+The package contain several useful functions.[![Tests](https://github.com/kaatinga/luna/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/kaatinga/luna/actions/workflows/test.yml)
